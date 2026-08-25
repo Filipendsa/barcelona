@@ -17,26 +17,26 @@ export function AttractionSlide({ scene }) {
 
   // Icon based on time period
   const getPeriodIcon = (period) => {
-    if (period.includes('Noite')) return <Moon size={15} className="text-indigo-400" />;
-    if (period.includes('Tarde') || period.includes('Pôr do Sol')) return <Sunset size={15} className="text-amber-400" />;
-    return <Sun size={15} className="text-amber-300" />;
+    if (period.includes('Noite')) return <Moon size={14} className="text-indigo-400" />;
+    if (period.includes('Tarde') || period.includes('Pôr do Sol')) return <Sunset size={14} className="text-amber-400" />;
+    return <Sun size={14} className="text-amber-300" />;
   };
 
   return (
-    <div className="cinema-stage-card">
+    <div className="cinema-stage-card font-serif">
       <div className="cinema-attraction-grid">
         
-        {/* Left Column: Information & Details with Generous Padding */}
+        {/* Left Column: Information & Details */}
         <div className="flex flex-col items-start text-left gap-3.5 sm:gap-4">
           
           {/* Top Meta Bar */}
           <div className="flex flex-wrap items-center gap-2">
             {/* Day Badge */}
             <span 
-              className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border backdrop-blur-md"
+              className="px-3 py-1 rounded-full text-xs font-serif font-bold uppercase tracking-wider border backdrop-blur-md"
               style={{
-                backgroundColor: `${themeColor}25`,
-                borderColor: `${themeColor}60`,
+                backgroundColor: `${themeColor}15`,
+                borderColor: `${themeColor}50`,
                 color: themeColor
               }}
             >
@@ -44,19 +44,19 @@ export function AttractionSlide({ scene }) {
             </span>
 
             {/* Time & Period */}
-            <span className="px-3 py-1 rounded-full bg-neutral-900/90 border border-white/10 text-neutral-300 text-xs font-medium flex items-center gap-1.5 backdrop-blur-md">
+            <span className="px-3 py-1 rounded-full bg-neutral-900/90 border border-white/15 text-neutral-300 text-xs font-serif flex items-center gap-1.5 backdrop-blur-md">
               {getPeriodIcon(attraction.period)}
               <span>{attraction.time}</span>
             </span>
 
             {/* Slide Index Counter */}
-            <span className="px-2.5 py-1 rounded-full bg-white/10 text-neutral-300 text-xs font-mono">
+            <span className="px-2.5 py-1 rounded-full bg-white/10 text-neutral-300 text-xs font-serif">
               {indexInDay} de {totalInDay}
             </span>
 
             {/* Optional Tag if Camp Nou */}
             {attraction.isOptional && (
-              <span className="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1">
+              <span className="px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/35 text-xs font-serif font-bold flex items-center gap-1">
                 <Sparkles size={12} />
                 <span>OPÇÃO SUGERIDA</span>
               </span>
@@ -64,7 +64,7 @@ export function AttractionSlide({ scene }) {
           </div>
 
           {/* Attraction Title */}
-          <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
+          <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
             {attraction.name}
           </h2>
 
@@ -75,10 +75,10 @@ export function AttractionSlide({ scene }) {
 
           {/* Padded Route & Tip Cards */}
           <div className="w-full space-y-3 pt-1">
-            {/* Route from base with generous padding */}
+            {/* Route from base */}
             <div className="cinema-info-box">
               <div className="p-2 rounded-xl bg-blue-500/20 text-blue-400 shrink-0 mt-0.5">
-                <MapPin size={18} />
+                <MapPin size={17} />
               </div>
               <div>
                 <span className="text-[10px] sm:text-xs uppercase font-bold text-blue-300 tracking-wider block">
@@ -90,11 +90,11 @@ export function AttractionSlide({ scene }) {
               </div>
             </div>
 
-            {/* Practical Tip with rich amber glow and generous padding */}
+            {/* Practical Tip */}
             {attraction.tips && (
               <div className="cinema-tip-box">
                 <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400 shrink-0 mt-0.5">
-                  <Lightbulb size={18} />
+                  <Lightbulb size={17} />
                 </div>
                 <div>
                   <span className="text-[10px] sm:text-xs uppercase font-bold text-amber-300 tracking-wider block">
@@ -111,21 +111,21 @@ export function AttractionSlide({ scene }) {
           {/* Price Tag & Official Ticket Button */}
           <div className="flex flex-wrap items-center gap-3 pt-2">
             {/* Price Badge */}
-            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-neutral-900/90 border border-white/15 backdrop-blur-md">
-              <Ticket size={18} className={attraction.price > 0 ? "text-amber-400" : "text-teal-400"} />
-              <span className="text-xs text-neutral-400">Ingresso:</span>
-              <span className="text-sm font-bold text-white">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900/90 border border-white/15 backdrop-blur-md text-xs">
+              <Ticket size={16} className={attraction.price > 0 ? "text-amber-400" : "text-teal-400"} />
+              <span className="text-neutral-400">Ingresso:</span>
+              <span className="font-bold text-white">
                 {attraction.priceFormatted || (attraction.price > 0 ? `€${attraction.price.toFixed(2)}` : 'Grátis')}
               </span>
             </div>
 
-            {/* Official Link Button if available */}
+            {/* Official Link Button (Sleek Outline Style) */}
             {attraction.ticketUrl && (
               <a
                 href={attraction.ticketUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition-all hover:scale-105"
+                className="btn-outline-gold"
               >
                 <span>Site Oficial de Compra</span>
                 <ExternalLink size={14} />
@@ -137,7 +137,7 @@ export function AttractionSlide({ scene }) {
 
         {/* Right Column: Crisp Photo Card with Captions */}
         <div className="hidden lg:block">
-          <div className="relative group rounded-3xl overflow-hidden p-2.5 bg-gradient-to-b from-white/25 via-white/10 to-transparent shadow-2xl border border-white/20 backdrop-blur-md">
+          <div className="relative group rounded-3xl overflow-hidden p-2.5 bg-gradient-to-b from-white/20 via-white/5 to-transparent shadow-2xl border border-white/15 backdrop-blur-md">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
               <img
                 src={image}

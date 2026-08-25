@@ -59,7 +59,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
   const groupTotal = perPersonTotal * GROUP_SIZE;
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 text-white space-y-8" style={{ paddingTop: '130px', paddingBottom: '120px' }}>
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 text-white space-y-8 font-serif" style={{ paddingTop: '140px', paddingBottom: '140px' }}>
       
       {/* Background Decorative Glows */}
       <div className="fixed inset-0 pointer-events-none z-0">
@@ -73,11 +73,11 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
         <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl bg-gradient-to-r from-neutral-900/95 via-neutral-900/85 to-neutral-900/95 backdrop-blur-xl">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30 mb-2.5">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 text-xs font-semibold border border-teal-500/30 mb-2.5">
                 <Sparkles size={14} />
                 <span>Central de Planejamento & Guia Oficial</span>
               </div>
-              <h1 className="font-display text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
+              <h1 className="font-serif text-2xl sm:text-4xl font-bold text-white tracking-tight mb-2">
                 Painel Técnico & Orçamento
               </h1>
               <p className="text-neutral-300 text-xs sm:text-sm max-w-2xl leading-relaxed">
@@ -85,19 +85,19 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
               </p>
             </div>
 
-            {/* Replay Presentation Button */}
+            {/* Replay Presentation Button (Outline Style) */}
             <div className="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto">
               <button
                 onClick={handleReplay}
-                className="btn-cinema px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-neutral-950 font-bold text-sm flex items-center justify-center gap-2 shadow-xl shadow-amber-500/25 hover:scale-105 active:scale-95 transition-all cursor-pointer border-0"
+                className="btn-outline-gold"
               >
-                <RotateCcw size={16} className="text-neutral-950" />
+                <RotateCcw size={15} />
                 <span>Reassistir Apresentação 🎬</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('slides')}
-                className="px-5 py-3 rounded-2xl bg-neutral-800 hover:bg-neutral-700 text-neutral-200 hover:text-white border border-white/10 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                className="btn-outline-glass"
               >
                 <Layers size={15} className="text-amber-400" />
                 <span>Mural de Slides ({scenes.length})</span>
@@ -106,53 +106,53 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
           </div>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-neutral-900/90 rounded-2xl border border-white/10 max-w-xl shadow-inner">
+        {/* Navigation Tabs (Outline Style) */}
+        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-neutral-950/80 rounded-full border border-white/15 max-w-xl shadow-inner">
           <button
             onClick={() => setActiveTab('pricing')}
-            className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border-0 ${
+            className={`flex-1 min-w-[120px] py-2 px-4 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border ${
               activeTab === 'pricing'
-                ? 'bg-amber-500 text-neutral-950 shadow-lg font-bold'
-                : 'bg-transparent text-neutral-300 hover:text-white hover:bg-white/5'
+                ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm'
+                : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
             }`}
           >
-            <Coins size={15} />
+            <Coins size={14} />
             <span>Preços (6 Pessoas)</span>
           </button>
 
           <button
             onClick={() => setActiveTab('slides')}
-            className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border-0 ${
+            className={`flex-1 min-w-[120px] py-2 px-4 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border ${
               activeTab === 'slides'
-                ? 'bg-amber-500 text-neutral-950 shadow-lg font-bold'
-                : 'bg-transparent text-neutral-300 hover:text-white hover:bg-white/5'
+                ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm'
+                : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
             }`}
           >
-            <Layers size={15} />
+            <Layers size={14} />
             <span>Mural de Slides</span>
           </button>
 
           <button
             onClick={() => setActiveTab('logistics')}
-            className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border-0 ${
+            className={`flex-1 min-w-[120px] py-2 px-4 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border ${
               activeTab === 'logistics'
-                ? 'bg-amber-500 text-neutral-950 shadow-lg font-bold'
-                : 'bg-transparent text-neutral-300 hover:text-white hover:bg-white/5'
+                ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm'
+                : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
             }`}
           >
-            <MapPin size={15} />
+            <MapPin size={14} />
             <span>Hospedagem & Metrô</span>
           </button>
 
           <button
             onClick={() => setActiveTab('tips')}
-            className={`flex-1 min-w-[120px] py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border-0 ${
+            className={`flex-1 min-w-[120px] py-2 px-4 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border ${
               activeTab === 'tips'
-                ? 'bg-amber-500 text-neutral-950 shadow-lg font-bold'
-                : 'bg-transparent text-neutral-300 hover:text-white hover:bg-white/5'
+                ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm'
+                : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
             }`}
           >
-            <Info size={15} />
+            <Info size={14} />
             <span>Dicas & Shabat</span>
           </button>
         </div>
@@ -161,16 +161,16 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
         {activeTab === 'pricing' && (
           <div className="space-y-8 animate-fadeIn">
             
-            {/* Executive Budget Summary Cards (Fixed for 6 people) */}
+            {/* Executive Budget Summary Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               
               {/* Card 1: Grupo Total */}
-              <div className="glass-panel p-5 rounded-3xl border border-amber-500/40 bg-gradient-to-br from-amber-950/40 to-neutral-900 text-left">
+              <div className="glass-panel p-5 rounded-3xl border border-amber-500/35 bg-neutral-900/90 text-left">
                 <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider flex items-center gap-1.5 mb-1">
                   <Users size={14} />
                   <span>Total do Grupo (6 Pessoas)</span>
                 </span>
-                <p className="text-3xl font-extrabold text-white">
+                <p className="text-3xl font-bold text-white">
                   €{groupTotal.toFixed(2)}
                 </p>
                 <p className="text-[11px] text-neutral-400 mt-1">
@@ -184,7 +184,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                   <Coins size={14} />
                   <span>Custo por Pessoa</span>
                 </span>
-                <p className="text-3xl font-extrabold text-white">
+                <p className="text-3xl font-bold text-white">
                   €{perPersonTotal.toFixed(2)}
                 </p>
                 <p className="text-[11px] text-neutral-400 mt-1">
@@ -198,7 +198,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                   <Train size={14} />
                   <span>Transporte T-Casual</span>
                 </span>
-                <p className="text-3xl font-extrabold text-white">
+                <p className="text-3xl font-bold text-white">
                   €78,00
                 </p>
                 <p className="text-[11px] text-neutral-400 mt-1">
@@ -207,7 +207,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
               </div>
 
               {/* Card 4: Toggle Camp Nou */}
-              <div className="glass-panel p-5 rounded-3xl border border-white/10 bg-neutral-900/90 text-left flex flex-col justify-between">
+              <div className="glass-panel p-5 rounded-3xl border border-white/15 bg-neutral-900/90 text-left flex flex-col justify-between">
                 <div>
                   <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-wider block mb-1">
                     Camp Nou Barça Tour (€28)
@@ -218,13 +218,13 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                 </div>
                 <button
                   onClick={() => setIncludeCampNou(!includeCampNou)}
-                  className={`mt-2 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer border-0 flex items-center justify-center gap-1.5 ${
+                  className={`mt-2 py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer border ${
                     includeCampNou
-                      ? 'bg-teal-500 text-neutral-950 shadow-md'
-                      : 'bg-neutral-800 text-neutral-400 hover:text-white'
+                      ? 'border-teal-400/80 text-teal-300 bg-teal-500/15'
+                      : 'border-white/20 text-neutral-400 hover:text-white bg-transparent'
                   }`}
                 >
-                  <Check size={14} />
+                  <Check size={14} className="inline mr-1" />
                   <span>{includeCampNou ? 'INCLUSO PARA OS 6' : 'OPCIONAL'}</span>
                 </button>
               </div>
@@ -235,7 +235,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
             <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 text-left">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-6 pb-4 border-b border-white/10">
                 <div>
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                  <h3 className="font-serif text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                     <Ticket className="text-amber-400" size={20} />
                     <span>Tabela Oficial de Ingressos (6 Pessoas)</span>
                   </h3>
@@ -260,11 +260,11 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                           <h4 className="font-bold text-sm sm:text-base text-white truncate">
                             {item.name}
                           </h4>
-                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-neutral-300 font-mono">
+                          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-neutral-300">
                             {item.day}
                           </span>
                           {item.status.includes('Opcional') && (
-                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-bold border border-amber-500/30">
                               OPCIONAL
                             </span>
                           )}
@@ -281,18 +281,18 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                           <span className="text-sm font-bold text-neutral-200">€{item.price.toFixed(2)}</span>
                         </div>
 
-                        <div className="text-right bg-amber-500/10 px-3 py-1.5 rounded-xl border border-amber-500/20">
+                        <div className="text-right bg-amber-500/10 px-3 py-1.5 rounded-xl border border-amber-500/25">
                           <span className="text-[10px] uppercase text-amber-300 block font-bold">Total (6x)</span>
-                          <span className="text-base font-extrabold text-amber-300">€{groupItemTotal.toFixed(2)}</span>
+                          <span className="text-base font-bold text-amber-300">€{groupItemTotal.toFixed(2)}</span>
                         </div>
 
-                        {/* Buy Link */}
+                        {/* Buy Link (Outline Button) */}
                         {item.url && (
                           <a
                             href={item.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-amber-500 hover:text-neutral-950 text-white text-xs font-semibold transition-all hover:scale-105"
+                            className="btn-outline-gold text-xs px-3.5 py-1.5"
                           >
                             <span>Comprar</span>
                             <ExternalLink size={13} />
@@ -305,11 +305,11 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
               </div>
             </div>
 
-            {/* Free Attractions Visual Grid (13 items) */}
+            {/* Free Attractions Visual Grid */}
             <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 text-left">
               <div className="mb-6 pb-4 border-b border-white/10 flex items-center justify-between">
                 <div>
-                  <h4 className="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                  <h4 className="font-serif text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                     <CheckCircle2 className="text-teal-400" size={20} />
                     <span>13 Atrações e Momentos Gratuitos Já Inclusos no Roteiro</span>
                   </h4>
@@ -317,7 +317,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                     Nenhum ingresso necessário para esses pontos turísticos
                   </p>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 font-bold text-xs border border-teal-500/30 hidden sm:inline-block">
+                <span className="px-3 py-1 rounded-full bg-teal-500/15 text-teal-300 font-bold text-xs border border-teal-500/30 hidden sm:inline-block">
                   Custo: €0,00
                 </span>
               </div>
@@ -329,7 +329,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                       <span className="text-neutral-200 font-medium text-xs sm:text-sm block">{free.name}</span>
                       <span className="text-[11px] text-neutral-400">{free.day}</span>
                     </div>
-                    <span className="px-2 py-0.5 rounded-lg bg-teal-500/20 text-teal-300 font-bold text-xs shrink-0">
+                    <span className="px-2.5 py-0.5 rounded-full bg-teal-500/15 text-teal-300 font-bold text-xs shrink-0 border border-teal-500/30">
                       Grátis
                     </span>
                   </div>
@@ -345,14 +345,14 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
           <div className="space-y-6 animate-fadeIn text-left">
             <div className="flex items-center justify-between pb-2 border-b border-white/10">
               <div>
-                <h3 className="font-display text-lg font-bold text-white">Mural de Slides da Apresentação</h3>
+                <h3 className="font-serif text-lg font-bold text-white">Mural de Slides da Apresentação</h3>
                 <p className="text-xs text-neutral-400">Clique em qualquer slide para pular diretamente para ele</p>
               </div>
               <button
                 onClick={handleReplay}
-                className="text-xs text-amber-300 hover:text-amber-200 flex items-center gap-1.5 font-semibold cursor-pointer bg-transparent border-0"
+                className="btn-outline-gold text-xs px-3 py-1.5"
               >
-                <RotateCcw size={14} />
+                <RotateCcw size={13} />
                 <span>Começar do Início</span>
               </button>
             </div>
@@ -386,11 +386,11 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
 
                     <div className="relative z-10 p-3.5 flex flex-col justify-between h-full">
                       <div className="flex items-center justify-between">
-                        <span className="px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-amber-300 border border-white/10">
+                        <span className="px-2 py-0.5 rounded-full bg-black/70 text-[10px] text-amber-300 border border-white/10">
                           Slide #{idx + 1}
                         </span>
                         {isDayCard && (
-                          <span className="px-2 py-0.5 rounded bg-amber-500 text-neutral-950 font-bold text-[10px]">
+                          <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40 text-[10px]">
                             DIA {scene.dayNumber}
                           </span>
                         )}
@@ -420,11 +420,11 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
               {/* Hotel Information Card */}
               <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-white/15">
                 <div className="flex items-center gap-3.5 text-amber-400 mb-6">
-                  <div className="p-3 rounded-2xl bg-amber-500/20 text-amber-300">
+                  <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-300">
                     <MapPin size={24} />
                   </div>
                   <div>
-                    <h3 className="font-display text-xl font-bold text-white">
+                    <h3 className="font-serif text-xl font-bold text-white">
                       {LODGING_INFO.name}
                     </h3>
                     <p className="text-xs sm:text-sm text-amber-200/80 mt-0.5">
@@ -455,7 +455,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
 
               {/* Day by Day Distance Matrix */}
               <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-white/15">
-                <h4 className="font-display text-lg font-bold text-white mb-4 flex items-center gap-2.5">
+                <h4 className="font-serif text-lg font-bold text-white mb-4 flex items-center gap-2.5">
                   <Navigation className="text-blue-400" size={20} />
                   <span>Deslocamentos por Dia (Saindo da Av. Gaudí)</span>
                 </h4>
@@ -513,7 +513,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {PRACTICAL_TIPS.map((tip, idx) => (
                 <div key={idx} className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 flex items-start gap-4">
-                  <div className="p-3 rounded-2xl bg-amber-500/20 text-amber-300 shrink-0">
+                  <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-300 shrink-0">
                     <Sun size={24} />
                   </div>
                   <div>

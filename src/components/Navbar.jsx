@@ -35,32 +35,32 @@ export function Navbar({
           onClick={() => onJumpToScene(0)}
           className="flex items-center gap-2.5 text-left group transition-transform hover:scale-105 cursor-pointer bg-transparent border-0"
         >
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 text-neutral-950 font-black text-xs tracking-wider shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-400/50 flex items-center justify-center text-amber-300 font-bold text-xs tracking-wider shrink-0 shadow-sm">
             BCN
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-display font-bold text-sm sm:text-base tracking-wider text-amber-200 group-hover:text-amber-100 transition-colors">
+              <span className="font-serif font-bold text-sm sm:text-base tracking-wider text-amber-200 group-hover:text-amber-100 transition-colors">
                 BARCELONA
               </span>
-              <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-semibold border border-amber-500/30">
+              <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 font-medium border border-amber-500/30">
                 13–16 SET
               </span>
             </div>
-            <p className="text-[11px] text-neutral-400 font-normal hidden md:block">
+            <p className="text-[11px] text-neutral-400 font-serif hidden md:block">
               Base: Av. de Gaudí 27 (Eixample)
             </p>
           </div>
         </button>
 
-        {/* Center: Quick Day Jumpers */}
-        <div className="hidden lg:flex items-center gap-1 bg-neutral-900/90 p-1 rounded-full border border-white/10 shadow-inner">
+        {/* Center: Quick Day Jumpers (Outline Style) */}
+        <div className="hidden lg:flex items-center gap-1.5 bg-neutral-950/80 p-1.5 rounded-full border border-white/15 shadow-inner">
           <button
             onClick={() => onJumpToScene(0)}
-            className={`px-3 py-1 text-xs font-medium rounded-full transition-all cursor-pointer ${
+            className={`px-3.5 py-1 text-xs font-serif rounded-full transition-all cursor-pointer border ${
               currentScene?.type === 'intro' 
-                ? 'bg-amber-500 text-neutral-950 shadow font-semibold' 
-                : 'text-neutral-300 hover:text-white hover:bg-white/5'
+                ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm' 
+                : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
             }`}
           >
             Início
@@ -74,25 +74,25 @@ export function Navbar({
               <button
                 key={dayNum}
                 onClick={() => onJumpToScene(daySceneIdx)}
-                className={`px-3 py-1 text-xs font-medium rounded-full transition-all flex items-center gap-1 cursor-pointer ${
+                className={`px-3.5 py-1 text-xs font-serif rounded-full transition-all flex items-center gap-1 cursor-pointer border ${
                   isCurrentDay && !isTechHub
-                    ? 'bg-white/20 text-white shadow border border-white/20 font-semibold' 
-                    : 'text-neutral-300 hover:text-white hover:bg-white/5'
+                    ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm' 
+                    : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
                 }`}
               >
                 <span>Dia {dayNum}</span>
-                {dayNum === 1 && <span className="text-[9px] text-amber-300 opacity-90">(Shabat)</span>}
-                {dayNum === 2 && <span className="text-[9px] text-teal-300 opacity-90">(Gaudí)</span>}
+                {dayNum === 1 && <span className="text-[9px] text-amber-300/80">(Shabat)</span>}
+                {dayNum === 2 && <span className="text-[9px] text-teal-300/80">(Gaudí)</span>}
               </button>
             );
           })}
 
           <button
             onClick={() => onJumpToScene(scenes.length - 1)}
-            className={`px-3.5 py-1 text-xs font-medium rounded-full transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3.5 py-1 text-xs font-serif rounded-full transition-all flex items-center gap-1.5 cursor-pointer border ${
               isTechHub 
-                ? 'bg-gradient-to-r from-blue-600 to-teal-500 text-white font-semibold shadow' 
-                : 'text-neutral-300 hover:text-white hover:bg-white/5'
+                ? 'border-teal-400 text-teal-300 bg-teal-500/15 font-bold shadow-sm' 
+                : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
             }`}
           >
             <Receipt size={13} />
@@ -106,9 +106,9 @@ export function Navbar({
           <button
             onClick={onOpenSlideDrawer}
             title="Ver todos os slides (Modo Apresentação)"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-white/10 transition-all text-xs font-medium cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-transparent hover:bg-white/5 text-neutral-300 hover:text-white border border-white/20 transition-all text-xs font-serif cursor-pointer"
           >
-            <Layers size={15} className="text-amber-400" />
+            <Layers size={14} className="text-amber-400" />
             <span className="hidden sm:inline">Slides</span>
           </button>
 
@@ -116,14 +116,14 @@ export function Navbar({
           <button
             onClick={onToggleMute}
             title={isMuted ? "Ativar Trilha Sonora Flamenca" : "Mutar Trilha Sonora"}
-            className={`px-3 py-1.5 rounded-xl border transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-full border transition-all flex items-center gap-1.5 font-serif cursor-pointer ${
               !isMuted 
-                ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 shadow-sm shadow-amber-500/20' 
-                : 'bg-neutral-900 border-white/10 text-neutral-400 hover:text-white'
+                ? 'bg-amber-500/15 border-amber-400/50 text-amber-300' 
+                : 'bg-transparent border-white/20 text-neutral-400 hover:text-white'
             }`}
           >
-            {!isMuted ? <Volume2 size={16} /> : <VolumeX size={16} />}
-            <span className="text-xs font-medium hidden md:inline">
+            {!isMuted ? <Volume2 size={15} /> : <VolumeX size={15} />}
+            <span className="text-xs hidden md:inline">
               {!isMuted ? 'Música ON' : 'Música'}
             </span>
           </button>
@@ -132,9 +132,9 @@ export function Navbar({
           <button
             onClick={onToggleFullscreen}
             title={isFullscreen ? "Sair da Tela Cheia" : "Tela Cheia"}
-            className="p-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-white/10 transition-all cursor-pointer"
+            className="p-2 rounded-full bg-transparent hover:bg-white/5 text-neutral-300 hover:text-white border border-white/20 transition-all cursor-pointer"
           >
-            {isFullscreen ? <Minimize size={16} /> : <Maximize size={16} />}
+            {isFullscreen ? <Minimize size={15} /> : <Maximize size={15} />}
           </button>
         </div>
 
