@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { 
-  Play, 
   RotateCcw, 
   Layers, 
   Ticket, 
@@ -12,30 +11,23 @@ import {
   Coins, 
   CheckCircle2, 
   Sun, 
-  ShieldCheck, 
   Train, 
-  Utensils, 
   Sparkles,
   Navigation,
-  CreditCard,
-  ChevronRight,
   Info,
-  Calendar,
-  Check
+  Check,
+  Map as MapIcon
 } from 'lucide-react';
-import { 
-  LODGING_INFO, 
-  TRIP_META, 
-  PRICING_BREAKDOWN, 
-  FREE_ATTRACTIONS, 
-  PRACTICAL_TIPS,
-  DAYS_DATA 
-} from '../data/itineraryData';
+import { getCityData } from '../data/itineraryData';
+import { InteractiveMap } from './InteractiveMap';
 
-export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
+export function TechnicalHub({ onReplayTour, onJumpToScene, scenes, currentCity, onSelectCity }) {
+  const cityData = getCityData(currentCity);
+  const isMadrid = currentCity === 'madrid';
+
   const [includeCampNou, setIncludeCampNou] = useState(true);
   const GROUP_SIZE = 6; // Fixo para 6 pessoas
-  const [activeTab, setActiveTab] = useState('pricing'); // 'pricing' | 'slides' | 'logistics' | 'tips'
+  const [activeTab, setActiveTab] = useState('logistics'); // 'logistics' | 'pricing' | 'slides' | 'tips'
 
   const handleReplay = () => {
     try {
@@ -50,12 +42,16 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
     onReplayTour();
   };
 
-  // Base pricing
-  const baseTickets = PRICING_BREAKDOWN.filter(item => item.name !== "Camp Nou (Barça Immersive Tour)");
-  const campNouTicket = PRICING_BREAKDOWN.find(item => item.name === "Camp Nou (Barça Immersive Tour)");
+  // Pricing calculation
+  const pricingList = cityData.pricingBreakdown;
+  const baseTickets = isMadrid 
+    ? pricingList 
+    : pricingList.filter(item => item.name !== "Camp Nou (Barça Immersive Tour)");
+  
+  const campNouTicket = !isMadrid ? pricingList.find(item => item.name === "Camp Nou (Barça Immersive Tour)") : null;
 
   const perPersonBase = baseTickets.reduce((acc, item) => acc + item.price, 0);
-  const perPersonTotal = includeCampNou ? perPersonBase + (campNouTicket?.price || 0) : perPersonBase;
+  const perPersonTotal = (!isMadrid && includeCampNou && campNouTicket) ? perPersonBase + campNouTicket.price : perPersonBase;
   const groupTotal = perPersonTotal * GROUP_SIZE;
 
   return (
@@ -69,23 +65,49 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
 
       <div className="relative z-10 w-full space-y-8">
         
+        {/* City Selector Header Switcher */}
+        <div className="flex items-center justify-center gap-3">
+          <div className="inline-flex items-center p-1.5 bg-neutral-950/90 rounded-full border border-white/20 shadow-xl backdrop-blur-xl">
+            <button
+              onClick={() => onSelectCity('barcelona')}
+              className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
+                !isMadrid
+                  ? 'border-amber-400 text-amber-300 bg-amber-500/20 shadow-md'
+                  : 'border-transparent text-neutral-400 hover:text-white'
+              }`}
+            >
+              🏰 Roteiro Barcelona (13–16 Set)
+            </button>
+            <button
+              onClick={() => onSelectCity('madrid')}
+              className={`px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
+                isMadrid
+                  ? 'border-red-400 text-red-300 bg-red-500/20 shadow-md'
+                  : 'border-transparent text-neutral-400 hover:text-white'
+              }`}
+            >
+              👑 Roteiro Madrid (16 Set - Express)
+            </button>
+          </div>
+        </div>
+
         {/* Hub Header & Action Buttons */}
         <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl bg-gradient-to-r from-neutral-900/95 via-neutral-900/85 to-neutral-900/95 backdrop-blur-xl">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-300 text-xs font-semibold border border-teal-500/30 mb-2.5">
                 <Sparkles size={14} />
-                <span>Central de Planejamento & Guia Oficial</span>
+                <span>Central de Planejamento, Mapas & Guia Oficial ({cityData.name})</span>
               </div>
               <h1 className="font-serif text-2xl sm:text-4xl font-bold text-white tracking-tight mb-2">
-                Painel Técnico & Orçamento
+                Painel Técnico, Mapas & Orçamento — {cityData.name}
               </h1>
               <p className="text-neutral-300 text-xs sm:text-sm max-w-2xl leading-relaxed">
-                Custos oficiais para o nosso grupo de <strong className="text-amber-300">6 pessoas</strong>, links diretos para ingressos e rotas saindo da <strong className="text-amber-300">Avinguda de Gaudí 27</strong>.
+                Mapas interativos com rotas traçadas, custos para o grupo de <strong className="text-amber-300">6 pessoas</strong>, links de compra e deslocamentos para <strong className="text-amber-300">{cityData.name}</strong>.
               </p>
             </div>
 
-            {/* Replay Presentation Button (Outline Style) */}
+            {/* Replay Presentation Button */}
             <div className="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto">
               <button
                 onClick={handleReplay}
@@ -106,8 +128,20 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
           </div>
         </div>
 
-        {/* Navigation Tabs (Outline Style) */}
-        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-neutral-950/80 rounded-full border border-white/15 max-w-xl shadow-inner">
+        {/* Navigation Tabs */}
+        <div className="flex flex-wrap items-center gap-2 p-1.5 bg-neutral-950/80 rounded-full border border-white/15 max-w-2xl shadow-inner">
+          <button
+            onClick={() => setActiveTab('logistics')}
+            className={`flex-1 min-w-[120px] py-2 px-4 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border ${
+              activeTab === 'logistics'
+                ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm'
+                : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
+            }`}
+          >
+            <MapIcon size={14} />
+            <span>Mapas & Trajetos</span>
+          </button>
+
           <button
             onClick={() => setActiveTab('pricing')}
             className={`flex-1 min-w-[120px] py-2 px-4 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border ${
@@ -133,18 +167,6 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
           </button>
 
           <button
-            onClick={() => setActiveTab('logistics')}
-            className={`flex-1 min-w-[120px] py-2 px-4 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border ${
-              activeTab === 'logistics'
-                ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm'
-                : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
-            }`}
-          >
-            <MapPin size={14} />
-            <span>Hospedagem & Metrô</span>
-          </button>
-
-          <button
             onClick={() => setActiveTab('tips')}
             className={`flex-1 min-w-[120px] py-2 px-4 rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer border ${
               activeTab === 'tips'
@@ -153,11 +175,168 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
             }`}
           >
             <Info size={14} />
-            <span>Dicas & Shabat</span>
+            <span>Dicas Práticas</span>
           </button>
         </div>
 
-        {/* TAB 1: PRICING FOR 6 PEOPLE */}
+        {/* TAB 1: MAPS & LOGISTICS (HIGHLIGHT) */}
+        {activeTab === 'logistics' && (
+          <div className="space-y-8 animate-fadeIn text-left">
+            
+            {/* Interactive Master Map Box */}
+            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 space-y-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-2 border-b border-white/10">
+                <div>
+                  <h3 className="font-serif text-xl font-bold text-white flex items-center gap-2.5">
+                    <MapIcon className="text-amber-400" size={22} />
+                    <span>Mapa Interativo de Atrações & Rotas — {cityData.name}</span>
+                  </h3>
+                  <p className="text-xs text-neutral-300 mt-1">
+                    Visualize o trajeto de cada dia com marcadores numerados e acesse as rotas detalhadas no Google Maps
+                  </p>
+                </div>
+              </div>
+
+              {/* Leaflet Master Map Component */}
+              <InteractiveMap currentCity={currentCity} />
+            </div>
+
+            {/* Lodging Base & Distance Matrix */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              
+              {/* Hotel / Base Info Card */}
+              <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-white/15">
+                <div className="flex items-center gap-3.5 text-amber-400 mb-6">
+                  <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-300">
+                    <MapPin size={24} />
+                  </div>
+                  <div>
+                    <h3 className="font-serif text-xl font-bold text-white">
+                      {cityData.lodgingInfo.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-amber-200/80 mt-0.5">
+                      {cityData.lodgingInfo.address}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-3 mt-4">
+                  {cityData.lodgingInfo.highlights.map((highlight, idx) => (
+                    <div key={idx} className="flex items-start gap-3 p-3 rounded-2xl bg-neutral-900/70 border border-white/10">
+                      <CheckCircle2 size={16} className="text-teal-400 shrink-0 mt-0.5" />
+                      <span className="text-xs sm:text-sm text-neutral-200 leading-relaxed">{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
+                  <div>
+                    <h5 className="font-bold text-xs text-amber-300 uppercase tracking-wider">Transporte & Mobilidade</h5>
+                    <p className="text-xs text-neutral-300 mt-1">
+                      {cityData.tripMeta.transportPass}
+                    </p>
+                  </div>
+                  <Train size={24} className="text-amber-400 shrink-0 ml-3" />
+                </div>
+              </div>
+
+              {/* Step-by-Step Route Breakdown */}
+              <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-white/15">
+                <h4 className="font-serif text-lg font-bold text-white mb-4 flex items-center gap-2.5">
+                  <Navigation className="text-blue-400" size={20} />
+                  <span>Trajetos e Deslocamentos Detalhados</span>
+                </h4>
+
+                <div className="space-y-3.5">
+                  {!isMadrid ? (
+                    <>
+                      <div className="p-4 rounded-2xl bg-neutral-900/80 border border-amber-500/25 text-xs sm:text-sm">
+                        <div className="flex items-center justify-between font-bold text-amber-300 mb-1.5">
+                          <span>Dia 1: Domingo (Chegada & Eixo Gaudí)</span>
+                          <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-500/15">100% a pé / metrô L5</span>
+                        </div>
+                        <p className="text-neutral-300 leading-relaxed">
+                          El Prat BCN (10:40) → Base Av. Gaudí 27 → Sagrada Família (2 min a pé) → Casa Milà (Metrô L5 ou 15 min a pé) → Casa Batlló (350m descendo o Passeig de Gràcia).
+                        </p>
+                      </div>
+
+                      <div className="p-4 rounded-2xl bg-neutral-900/80 border border-teal-500/25 text-xs sm:text-sm">
+                        <div className="flex items-center justify-between font-bold text-teal-300 mb-1.5">
+                          <span>Dia 2: Segunda (Feira, Parques & Ciência)</span>
+                          <span className="text-[11px] px-2 py-0.5 rounded-full bg-teal-500/15">Tram T4 + Metrô L7 + Ônibus V19</span>
+                        </div>
+                        <p className="text-neutral-300 leading-relaxed">
+                          Mercat dels Encants (Glòries) → Parc de la Ciutadella & Arco do Triunfo (Tram T4) → Almoço El Born → CosmoCaixa (FGC Linha L7) → Parc Güell (Ônibus V19 direto).
+                        </p>
+                      </div>
+
+                      <div className="p-4 rounded-2xl bg-neutral-900/80 border border-blue-500/25 text-xs sm:text-sm">
+                        <div className="flex items-center justify-between font-bold text-blue-300 mb-1.5">
+                          <span>Dia 3: Terça (Gótico, Barça & Praia)</span>
+                          <span className="text-[11px] px-2 py-0.5 rounded-full bg-blue-500/15">Eixo direto Metrô Linha L3</span>
+                        </div>
+                        <p className="text-neutral-300 leading-relaxed">
+                          Catedral (Grátis 08h30) → Bairro Gótico & Pont del Bisbe → La Boqueria (Liceu) → Spotify Camp Nou (Metrô L3 Palau Reial) → MNAC Montjuïc (Metrô L3 Espanya) → Praia de Barceloneta & Fonte Mágica.
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="p-4 rounded-2xl bg-neutral-900/80 border border-red-500/25 text-xs sm:text-sm">
+                        <div className="flex items-center justify-between font-bold text-red-300 mb-1.5">
+                          <span>Dia 4: Quarta (Madrid Express 13:45–23:55)</span>
+                          <span className="text-[11px] px-2 py-0.5 rounded-full bg-red-500/15">Cercanías C1 + 100% a pé</span>
+                        </div>
+                        <p className="text-neutral-300 leading-relaxed">
+                          Desembarque MAD (13:45) → Consigna T4 & Cercanías a Sol → Porta do Sol & Plaza Mayor (15h) → Mercado São Miguel (16h30) → Palácio Real & Almudena (17h30) → Gran Vía & Cibeles (18h45) → Retiro (20h) → Jantar (21h15) → Aeroporto (22h) → Voo (23h55).
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Madrid Optional Attractions Section (if Madrid is active) */}
+            {isMadrid && cityData.optionalAttractions && (
+              <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 text-left">
+                <div className="mb-4 pb-3 border-b border-white/10 flex items-center justify-between">
+                  <div>
+                    <h4 className="font-serif text-lg font-bold text-white flex items-center gap-2">
+                      <Sparkles className="text-amber-400" size={18} />
+                      <span>Atrações Opcionais Mapeadas ao Longo do Trajeto em Madrid</span>
+                    </h4>
+                    <p className="text-xs text-neutral-400 mt-0.5">
+                      Sugestões adicionais para quem desejar flexibilizar o percurso a pé
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {cityData.optionalAttractions.map((opt, i) => (
+                    <div key={i} className="p-4 rounded-2xl bg-neutral-900/90 border border-amber-500/20 flex flex-col justify-between gap-3">
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-amber-300 block mb-1">
+                          {opt.category} • {opt.priceFormatted}
+                        </span>
+                        <h5 className="font-bold text-sm text-white mb-1">{opt.name}</h5>
+                        <p className="text-xs text-neutral-300 leading-relaxed">{opt.description}</p>
+                      </div>
+                      <span className="text-[11px] text-neutral-400 flex items-center gap-1">
+                        <MapPin size={11} className="text-red-400" />
+                        <span>{opt.location}</span>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+          </div>
+        )}
+
+        {/* TAB 2: PRICING FOR 6 PEOPLE */}
         {activeTab === 'pricing' && (
           <div className="space-y-8 animate-fadeIn">
             
@@ -174,7 +353,9 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                   €{groupTotal.toFixed(2)}
                 </p>
                 <p className="text-[11px] text-neutral-400 mt-1">
-                  {includeCampNou ? 'Todos os ingressos + Camp Nou' : 'Ingressos sem Camp Nou'}
+                  {!isMadrid
+                    ? (includeCampNou ? 'Todos os ingressos + Camp Nou' : 'Ingressos sem Camp Nou')
+                    : 'Estimativa de gastos essenciais em Madrid'}
                 </p>
               </div>
 
@@ -188,46 +369,64 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                   €{perPersonTotal.toFixed(2)}
                 </p>
                 <p className="text-[11px] text-neutral-400 mt-1">
-                  Média por pessoa para toda a viagem
+                  Média individual para {cityData.name}
                 </p>
               </div>
 
-              {/* Card 3: Transporte Metrô */}
+              {/* Card 3: Transporte */}
               <div className="glass-panel p-5 rounded-3xl border border-blue-500/30 bg-neutral-900/90 text-left">
                 <span className="text-[10px] uppercase font-bold text-blue-300 tracking-wider flex items-center gap-1.5 mb-1">
                   <Train size={14} />
-                  <span>Transporte T-Casual</span>
+                  <span>Transporte</span>
                 </span>
                 <p className="text-3xl font-bold text-white">
-                  €78,00
+                  {!isMadrid ? '€72,90' : '€15,60'}
                 </p>
                 <p className="text-[11px] text-neutral-400 mt-1">
-                  6 cartões de 10 viagens (€13 cada)
+                  {!isMadrid
+                    ? '6 cartões T-Casual de 10 viagens (~€12,15)'
+                    : '6 bilhetes Cercanías C1 ida/volta (~€2,60)'}
                 </p>
               </div>
 
-              {/* Card 4: Toggle Camp Nou */}
-              <div className="glass-panel p-5 rounded-3xl border border-white/15 bg-neutral-900/90 text-left flex flex-col justify-between">
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-wider block mb-1">
-                    Camp Nou Barça Tour (€28)
-                  </span>
-                  <p className="text-xs text-neutral-200 font-medium">
-                    {includeCampNou ? '6 Ingressos inclusos' : 'Apenas quem quiser'}
-                  </p>
+              {/* Card 4: Toggle / Highlight */}
+              {!isMadrid ? (
+                <div className="glass-panel p-5 rounded-3xl border border-white/15 bg-neutral-900/90 text-left flex flex-col justify-between">
+                  <div>
+                    <span className="text-[10px] uppercase font-bold text-neutral-400 tracking-wider block mb-1">
+                      Camp Nou Barça Tour (€28)
+                    </span>
+                    <p className="text-xs text-neutral-200 font-medium">
+                      {includeCampNou ? '6 Ingressos inclusos' : 'Apenas quem quiser'}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setIncludeCampNou(!includeCampNou)}
+                    className={`mt-2 py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer border ${
+                      includeCampNou
+                        ? 'border-teal-400/80 text-teal-300 bg-teal-500/15'
+                        : 'border-white/20 text-neutral-400 hover:text-white bg-transparent'
+                    }`}
+                  >
+                    <Check size={14} className="inline mr-1" />
+                    <span>{includeCampNou ? 'INCLUSO PARA OS 6' : 'OPCIONAL'}</span>
+                  </button>
                 </div>
-                <button
-                  onClick={() => setIncludeCampNou(!includeCampNou)}
-                  className={`mt-2 py-2 px-3 rounded-full text-xs font-bold transition-all cursor-pointer border ${
-                    includeCampNou
-                      ? 'border-teal-400/80 text-teal-300 bg-teal-500/15'
-                      : 'border-white/20 text-neutral-400 hover:text-white bg-transparent'
-                  }`}
-                >
-                  <Check size={14} className="inline mr-1" />
-                  <span>{includeCampNou ? 'INCLUSO PARA OS 6' : 'OPCIONAL'}</span>
-                </button>
-              </div>
+              ) : (
+                <div className="glass-panel p-5 rounded-3xl border border-red-500/30 bg-neutral-900/90 text-left flex flex-col justify-between">
+                  <div>
+                    <span className="text-[10px] uppercase font-bold text-red-300 tracking-wider block mb-1">
+                      Consigna + Trem
+                    </span>
+                    <p className="text-xs text-neutral-200 font-medium">
+                      Guarda-volumes aeroporto + Cercanías direto
+                    </p>
+                  </div>
+                  <span className="text-xs font-bold text-red-300 mt-2">
+                    ~€12,60 / pessoa
+                  </span>
+                </div>
+              )}
 
             </div>
 
@@ -237,16 +436,16 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                 <div>
                   <h3 className="font-serif text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                     <Ticket className="text-amber-400" size={20} />
-                    <span>Tabela Oficial de Ingressos (6 Pessoas)</span>
+                    <span>Tabela Oficial de Ingressos & Gastos ({cityData.name})</span>
                   </h3>
                   <p className="text-xs text-neutral-400 mt-0.5">
-                    Preços unitários e total para 6 pessoas com links diretos para compras oficiais
+                    Preços unitários e estimativa para o grupo de 6 pessoas
                   </p>
                 </div>
               </div>
 
               <div className="divide-y divide-white/5 space-y-2">
-                {PRICING_BREAKDOWN.map((item, idx) => {
+                {pricingList.map((item, idx) => {
                   const isCampNou = item.name.includes("Camp Nou");
                   if (isCampNou && !includeCampNou) return null;
                   const groupItemTotal = item.price * GROUP_SIZE;
@@ -263,7 +462,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                           <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-neutral-300">
                             {item.day}
                           </span>
-                          {item.status.includes('Opcional') && (
+                          {item.status?.includes('Opcional') && (
                             <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 font-bold border border-amber-500/30">
                               OPCIONAL
                             </span>
@@ -286,7 +485,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                           <span className="text-base font-bold text-amber-300">€{groupItemTotal.toFixed(2)}</span>
                         </div>
 
-                        {/* Buy Link (Outline Button) */}
+                        {/* Buy Link */}
                         {item.url && (
                           <a
                             href={item.url}
@@ -311,7 +510,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                 <div>
                   <h4 className="font-serif text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                     <CheckCircle2 className="text-teal-400" size={20} />
-                    <span>13 Atrações e Momentos Gratuitos Já Inclusos no Roteiro</span>
+                    <span>{cityData.freeAttractions.length} Atrações Gratuitas em {cityData.name}</span>
                   </h4>
                   <p className="text-xs text-neutral-400 mt-0.5">
                     Nenhum ingresso necessário para esses pontos turísticos
@@ -323,7 +522,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {FREE_ATTRACTIONS.map((free, i) => (
+                {cityData.freeAttractions.map((free, i) => (
                   <div key={i} className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/10 flex items-center justify-between gap-2 hover:border-teal-500/40 transition-all">
                     <div>
                       <span className="text-neutral-200 font-medium text-xs sm:text-sm block">{free.name}</span>
@@ -340,12 +539,12 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
           </div>
         )}
 
-        {/* TAB 2: POWERPOINT / SLIDE DECK GRID */}
+        {/* TAB 3: POWERPOINT / SLIDE DECK GRID */}
         {activeTab === 'slides' && (
           <div className="space-y-6 animate-fadeIn text-left">
             <div className="flex items-center justify-between pb-2 border-b border-white/10">
               <div>
-                <h3 className="font-serif text-lg font-bold text-white">Mural de Slides da Apresentação</h3>
+                <h3 className="font-serif text-lg font-bold text-white">Mural de Slides — {cityData.name}</h3>
                 <p className="text-xs text-neutral-400">Clique em qualquer slide para pular diretamente para ele</p>
               </div>
               <button
@@ -364,12 +563,12 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                 const isIntro = scene.type === 'intro';
 
                 const title = isIntro 
-                  ? 'Abertura: Barcelona 2026'
+                  ? `Abertura: ${cityData.name}`
                   : isDayCard 
-                  ? `Capítulo: Dia ${scene.dayNumber} - ${scene.title}`
+                  ? `Capítulo: ${scene.title}`
                   : scene.attraction?.name;
 
-                const subtitle = isAttraction ? `${scene.attraction?.time} • Dia ${scene.dayNumber}` : scene.subtitle;
+                const subtitle = isAttraction ? `${scene.attraction?.time} • ${scene.cityName}` : scene.subtitle;
 
                 return (
                   <button
@@ -378,7 +577,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                     className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-amber-500/60 bg-neutral-900 text-left transition-all hover:scale-[1.02] shadow-lg flex flex-col cursor-pointer aspect-video"
                   >
                     <img
-                      src={scene.image || '/images/barcelona_hero.jpg'}
+                      src={scene.image || cityData.heroImage}
                       alt={title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
@@ -391,7 +590,7 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
                         </span>
                         {isDayCard && (
                           <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40 text-[10px]">
-                            DIA {scene.dayNumber}
+                            {cityData.name}
                           </span>
                         )}
                       </div>
@@ -412,106 +611,11 @@ export function TechnicalHub({ onReplayTour, onJumpToScene, scenes }) {
           </div>
         )}
 
-        {/* TAB 3: HOSPEDAGEM & METRÔ */}
-        {activeTab === 'logistics' && (
-          <div className="space-y-8 animate-fadeIn text-left">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-              
-              {/* Hotel Information Card */}
-              <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-white/15">
-                <div className="flex items-center gap-3.5 text-amber-400 mb-6">
-                  <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-300">
-                    <MapPin size={24} />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-xl font-bold text-white">
-                      {LODGING_INFO.name}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-amber-200/80 mt-0.5">
-                      {LODGING_INFO.address}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="space-y-3 mt-4">
-                  {LODGING_INFO.highlights.map((highlight, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3 rounded-2xl bg-neutral-900/70 border border-white/10">
-                      <CheckCircle2 size={16} className="text-teal-400 shrink-0 mt-0.5" />
-                      <span className="text-xs sm:text-sm text-neutral-200 leading-relaxed">{highlight}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
-                  <div>
-                    <h5 className="font-bold text-xs text-amber-300 uppercase tracking-wider">Estações de Metrô Próximas</h5>
-                    <p className="text-xs text-neutral-300 mt-1">
-                      Sagrada Família (L2 Roxa, L5 Azul) e Sant Pau (L5 Azul)
-                    </p>
-                  </div>
-                  <Train size={24} className="text-amber-400 shrink-0 ml-3" />
-                </div>
-              </div>
-
-              {/* Day by Day Distance Matrix */}
-              <div className="lg:col-span-6 glass-panel p-6 sm:p-8 rounded-3xl border border-white/15">
-                <h4 className="font-serif text-lg font-bold text-white mb-4 flex items-center gap-2.5">
-                  <Navigation className="text-blue-400" size={20} />
-                  <span>Deslocamentos por Dia (Saindo da Av. Gaudí)</span>
-                </h4>
-
-                <div className="space-y-3">
-                  <div className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/10 text-xs sm:text-sm">
-                    <div className="flex items-center justify-between font-bold text-amber-300 mb-1">
-                      <span>Dia 1: Sábado (Eixample & Praia)</span>
-                      <span>100% a pé / metrô L4</span>
-                    </div>
-                    <p className="text-neutral-300 leading-relaxed">
-                      Sagrada Família (2 min a pé) → Sant Pau (7 min a pé) → Passeig de Gràcia (20 min) → Praia (Metrô L4).
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/10 text-xs sm:text-sm">
-                    <div className="flex items-center justify-between font-bold text-teal-300 mb-1">
-                      <span>Dia 2: Domingo (Gaudí Completo)</span>
-                      <span>A pé + Ônibus 24 + Metrô L3</span>
-                    </div>
-                    <p className="text-neutral-300 leading-relaxed">
-                      Sagrada (2 min) → Casa Vicens (15 min) → Parc Güell (Ônibus 24) → Batlló & Milà (Metrô L3) → Fonte Mágica (Metrô L3 Espanya).
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/10 text-xs sm:text-sm">
-                    <div className="flex items-center justify-between font-bold text-purple-300 mb-1">
-                      <span>Dia 3: Segunda (Centro Gótico & Ciutadella)</span>
-                      <span>Metrô L2 + 100% a pé</span>
-                    </div>
-                    <p className="text-neutral-300 leading-relaxed">
-                      Metrô direto até Liceu (15 min). Todo o Bairro Gótico, Catedral, Boqueria, El Born e Parque da Ciutadella são 100% caminháveis.
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-2xl bg-neutral-900/80 border border-white/10 text-xs sm:text-sm">
-                    <div className="flex items-center justify-between font-bold text-blue-300 mb-1">
-                      <span>Dia 4: Terça (Montjuïc & Camp Nou)</span>
-                      <span>Metrô L5 / L2</span>
-                    </div>
-                    <p className="text-neutral-300 leading-relaxed">
-                      Camp Nou: Metrô L5 direto sem baldeação (18 min). Reunião na Plaça Espanya às 12:30 para subida conjunta de Montjuïc.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        )}
-
-        {/* TAB 4: DICAS PRÁTICAS & SHABAT */}
+        {/* TAB 4: DICAS PRÁTICAS & OBSERVAÇÕES */}
         {activeTab === 'tips' && (
           <div className="space-y-6 animate-fadeIn text-left">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {PRACTICAL_TIPS.map((tip, idx) => (
+              {cityData.practicalTips.map((tip, idx) => (
                 <div key={idx} className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/15 flex items-start gap-4">
                   <div className="p-3 rounded-2xl bg-amber-500/15 text-amber-300 shrink-0">
                     <Sun size={24} />

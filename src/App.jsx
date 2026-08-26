@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { buildScenesList } from './hooks/usePresentation';
 import { audioManager } from './utils/audioManager';
@@ -12,7 +12,8 @@ import { VideoControls } from './components/VideoControls';
 import { SlideDeckDrawer } from './components/SlideDeckDrawer';
 
 export function App() {
-  const scenes = useRef(buildScenesList()).current;
+  const [currentCity, setCurrentCity] = useState('barcelona');
+  const scenes = useMemo(() => buildScenesList(currentCity), [currentCity]);
   const [currentSceneIndex, setCurrentSceneIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
@@ -21,10 +22,19 @@ export function App() {
   const [isSlideDrawerOpen, setIsSlideDrawerOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const currentScene = scenes[currentSceneIndex];
+  const currentScene = scenes[currentSceneIndex] || scenes[0];
   const isTechHub = currentScene?.type === 'tech_hub';
   const timerRef = useRef(null);
   const startTimeRef = useRef(null);
+
+  const handleSelectCity = useCallback((cityId) => {
+    if (cityId !== currentCity) {
+      setCurrentCity(cityId);
+      setCurrentSceneIndex(0);
+      setSceneProgress(0);
+      setIsPlaying(false);
+    }
+  }, [currentCity]);
 
   // Jump to specific scene
   const handleJumpToScene = useCallback((index) => {
@@ -193,6 +203,8 @@ export function App() {
         onJumpToScene={handleJumpToScene}
         onOpenSlideDrawer={() => setIsSlideDrawerOpen(true)}
         scenes={scenes}
+        currentCity={currentCity}
+        onSelectCity={handleSelectCity}
       />
 
       {/* Progress Timeline Scrubber */}
@@ -207,7 +219,7 @@ export function App() {
       <main className={isTechHub ? "w-full" : "cinema-viewport-stage"}>
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentScene.id}
+            key={`${currentCity}_${currentScene.id}`}
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 1.01 }}
@@ -218,6 +230,8 @@ export function App() {
               <CinematicIntro
                 onStartTour={handleStartTour}
                 onOpenTechHub={handleOpenTechHub}
+                currentCity={currentCity}
+                onSelectCity={handleSelectCity}
               />
             )}
 
@@ -239,6 +253,8 @@ export function App() {
                 onReplayTour={handleReplayTour}
                 onJumpToScene={handleJumpToScene}
                 scenes={scenes}
+                currentCity={currentCity}
+                onSelectCity={handleSelectCity}
               />
             )}
           </motion.div>

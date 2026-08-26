@@ -8,7 +8,9 @@ import {
   Minimize, 
   Layers, 
   Receipt,
-  Sparkles
+  Sparkles,
+  MapPin,
+  Map as MapIcon
 } from 'lucide-react';
 
 export function Navbar({ 
@@ -22,36 +24,48 @@ export function Navbar({
   onToggleFullscreen,
   onJumpToScene,
   onOpenSlideDrawer,
-  scenes
+  scenes,
+  currentCity,
+  onSelectCity
 }) {
   const isTechHub = currentScene?.type === 'tech_hub';
+  const isMadrid = currentCity === 'madrid';
 
   return (
     <header className="cinema-header">
-      <div className="cinema-header-inner">
+      <div className="cinema-header-inner flex items-center justify-between gap-2">
         
-        {/* Left: Branding & Lodging Base */}
-        <button 
-          onClick={() => onJumpToScene(0)}
-          className="flex items-center gap-2.5 text-left group transition-transform hover:scale-105 cursor-pointer bg-transparent border-0"
-        >
-          <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-400/50 flex items-center justify-center text-amber-300 font-bold text-xs tracking-wider shrink-0 shadow-sm">
-            BCN
+        {/* Left: City Switcher Menu (Barcelona / Madrid Tabs) */}
+        <div className="flex items-center gap-2">
+          {/* Main City Tabs */}
+          <div className="flex items-center p-1 bg-neutral-950/90 rounded-full border border-white/20 shadow-md">
+            <button
+              onClick={() => onSelectCity('barcelona')}
+              className={`px-3 py-1 text-xs font-serif rounded-full transition-all flex items-center gap-1.5 cursor-pointer border ${
+                !isMadrid
+                  ? 'border-amber-400 text-amber-300 bg-amber-500/20 font-bold shadow-sm'
+                  : 'border-transparent text-neutral-400 hover:text-white'
+              }`}
+            >
+              <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+              <span>Barcelona</span>
+              <span className="text-[10px] opacity-75 hidden sm:inline">(13–16 Set)</span>
+            </button>
+
+            <button
+              onClick={() => onSelectCity('madrid')}
+              className={`px-3 py-1 text-xs font-serif rounded-full transition-all flex items-center gap-1.5 cursor-pointer border ${
+                isMadrid
+                  ? 'border-red-400 text-red-300 bg-red-500/20 font-bold shadow-sm'
+                  : 'border-transparent text-neutral-400 hover:text-white'
+              }`}
+            >
+              <span className="w-2 h-2 rounded-full bg-red-400 shrink-0" />
+              <span>Madrid</span>
+              <span className="text-[10px] opacity-75 hidden sm:inline">(16 Set)</span>
+            </button>
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-serif font-bold text-sm sm:text-base tracking-wider text-amber-200 group-hover:text-amber-100 transition-colors">
-                BARCELONA
-              </span>
-              <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 font-medium border border-amber-500/30">
-                13–16 SET
-              </span>
-            </div>
-            <p className="text-[11px] text-neutral-400 font-serif hidden md:block">
-              Base: Av. de Gaudí 27 (Eixample)
-            </p>
-          </div>
-        </button>
+        </div>
 
         {/* Center: Quick Day Jumpers (Outline Style) */}
         <div className="hidden lg:flex items-center gap-1.5 bg-neutral-950/80 p-1.5 rounded-full border border-white/15 shadow-inner">
@@ -59,33 +73,54 @@ export function Navbar({
             onClick={() => onJumpToScene(0)}
             className={`px-3.5 py-1 text-xs font-serif rounded-full transition-all cursor-pointer border ${
               currentScene?.type === 'intro' 
-                ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm' 
+                ? (isMadrid ? 'border-red-400/80 text-red-300 bg-red-500/15 font-bold shadow-sm' : 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm')
                 : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
             }`}
           >
             Início
           </button>
 
-          {[1, 2, 3, 4].map((dayNum) => {
-            const isCurrentDay = currentScene?.dayNumber === dayNum;
-            const daySceneIdx = scenes.findIndex(s => s.type === 'day_card' && s.dayNumber === dayNum);
-            
-            return (
-              <button
-                key={dayNum}
-                onClick={() => onJumpToScene(daySceneIdx)}
-                className={`px-3.5 py-1 text-xs font-serif rounded-full transition-all flex items-center gap-1 cursor-pointer border ${
-                  isCurrentDay && !isTechHub
-                    ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm' 
-                    : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
-                }`}
-              >
-                <span>Dia {dayNum}</span>
-                {dayNum === 1 && <span className="text-[9px] text-amber-300/80">(Shabat)</span>}
-                {dayNum === 2 && <span className="text-[9px] text-teal-300/80">(Gaudí)</span>}
-              </button>
-            );
-          })}
+          {!isMadrid ? (
+            [1, 2, 3].map((dayNum) => {
+              const isCurrentDay = currentScene?.dayNumber === dayNum;
+              const daySceneIdx = scenes.findIndex(s => s.type === 'day_card' && s.dayNumber === dayNum);
+              
+              const dayLabels = {
+                1: 'Gaudí',
+                2: 'Ciência & Feira',
+                3: 'Gótico & Barça'
+              };
+
+              return (
+                <button
+                  key={dayNum}
+                  onClick={() => onJumpToScene(daySceneIdx)}
+                  className={`px-3.5 py-1 text-xs font-serif rounded-full transition-all flex items-center gap-1 cursor-pointer border ${
+                    isCurrentDay && !isTechHub
+                      ? 'border-amber-400/80 text-amber-300 bg-amber-500/15 font-bold shadow-sm' 
+                      : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
+                  }`}
+                >
+                  <span>Dia {dayNum}</span>
+                  <span className="text-[9px] opacity-80">({dayLabels[dayNum]})</span>
+                </button>
+              );
+            })
+          ) : (
+            <button
+              onClick={() => {
+                const daySceneIdx = scenes.findIndex(s => s.type === 'day_card');
+                onJumpToScene(daySceneIdx >= 0 ? daySceneIdx : 1);
+              }}
+              className={`px-3.5 py-1 text-xs font-serif rounded-full transition-all flex items-center gap-1 cursor-pointer border ${
+                currentScene?.type === 'day_card' || (currentScene?.type === 'attraction' && !isTechHub)
+                  ? 'border-red-400/80 text-red-300 bg-red-500/15 font-bold shadow-sm' 
+                  : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
+              }`}
+            >
+              <span>1 Tarde Express (13h45–23h55)</span>
+            </button>
+          )}
 
           <button
             onClick={() => onJumpToScene(scenes.length - 1)}
@@ -95,8 +130,8 @@ export function Navbar({
                 : 'border-transparent text-neutral-300 hover:text-white hover:border-white/20'
             }`}
           >
-            <Receipt size={13} />
-            <span>Preços & Guia</span>
+            <MapIcon size={13} className="text-amber-400" />
+            <span>Mapas & Guia</span>
           </button>
         </div>
 

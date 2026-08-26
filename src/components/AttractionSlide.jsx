@@ -108,16 +108,30 @@ export function AttractionSlide({ scene }) {
             )}
           </div>
 
-          {/* Price Tag & Official Ticket Button */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          {/* Price Tag & Official Ticket Button & Google Maps */}
+          <div className="flex flex-wrap items-center gap-2.5 pt-2">
             {/* Price Badge */}
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900/90 border border-white/15 backdrop-blur-md text-xs">
-              <Ticket size={16} className={attraction.price > 0 ? "text-amber-400" : "text-teal-400"} />
+            <div className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-neutral-900/90 border border-white/15 backdrop-blur-md text-xs">
+              <Ticket size={15} className={attraction.price > 0 ? "text-amber-400" : "text-teal-400"} />
               <span className="text-neutral-400">Ingresso:</span>
               <span className="font-bold text-white">
                 {attraction.priceFormatted || (attraction.price > 0 ? `€${attraction.price.toFixed(2)}` : 'Grátis')}
               </span>
             </div>
+
+            {/* Google Maps Button */}
+            {attraction.googleMapsUrl && (
+              <a
+                href={attraction.googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline-glass text-xs px-3.5 py-2 flex items-center gap-1.5"
+              >
+                <MapPin size={14} className="text-blue-400" />
+                <span>Ver no Google Maps</span>
+                <ExternalLink size={12} />
+              </a>
+            )}
 
             {/* Official Link Button (Sleek Outline Style) */}
             {attraction.ticketUrl && (
@@ -125,10 +139,10 @@ export function AttractionSlide({ scene }) {
                 href={attraction.ticketUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-outline-gold"
+                className="btn-outline-gold text-xs px-3.5 py-2 flex items-center gap-1.5"
               >
                 <span>Site Oficial de Compra</span>
-                <ExternalLink size={14} />
+                <ExternalLink size={13} />
               </a>
             )}
           </div>

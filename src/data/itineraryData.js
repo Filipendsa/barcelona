@@ -1,479 +1,594 @@
+// =========================================================================
+// ROTEIRO OFICIAL BARCELONA & MADRID (13 A 16 DE SETEMBRO DE 2026)
+// Com horários precisos, datas reais, coordenadas e rotas Google Maps
+// Adaptado com respeito às preferências Adventistas (sem carne suína/jamón)
+// =========================================================================
+
 export const LODGING_INFO = {
   name: "Nossa Hospedagem em Barcelona",
   address: "Avinguda de Gaudí 27, Eixample, 08025 Barcelona, Espanha",
   neighborhood: "Eixample / Sagrada Família",
   highlights: [
     "Apenas 2 minutos a pé da Basílica da Sagrada Família",
-    "Boulevard charmoso para pedestres repleto de cafés e vista direta",
+    "Boulevard charmoso para pedestres repleto de cafés, restaurantes e vista monumental",
     "Estações de Metrô L2 e L5 a 200 metros (Sagrada Família e Sant Pau)",
-    "Ponto estratégico para fazer quase tudo a pé ou metrô rápido"
+    "Ponto estratégico com acesso rápido a pé ou metrô direto para todas as atrações"
   ],
-  coordinates: { lat: 41.4063, lng: 2.1764 }
+  coordinates: { lat: 41.4063, lng: 2.1764 },
+  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Avinguda+de+Gaudi+27+Barcelona"
 };
 
 export const TRIP_META = {
-  destination: "Barcelona, Catalunha, Espanha",
+  destination: "Barcelona & Madrid, Espanha",
   dates: "13 a 16 de Setembro de 2026",
-  duration: "4 Dias / 3 Noites",
-  arrival: "Sábado, 13/09 às 10:35 no Aeroporto El Prat (BCN)",
-  sunsetDay1: "20:03 (Fim do Shabat e liberação para compras e jantares)",
+  duration: "4 Dias (3 Noites em Barcelona + Madrid Express)",
+  arrival: "Domingo, 13/09 às 10:40 no Aeroporto El Prat (BCN)",
+  departure: "Quarta-feira, 16/09 às 23:55 no Aeroporto Madrid-Barajas (MAD)",
   currency: "Euro (€)",
-  transportPass: "T-Casual (10 viagens integradas metrô/ônibus/tram por €13,00)",
+  transportPass: "T-Casual Barcelona (10 viagens integradas metrô/ônibus por ~€12,15 a €13,00) + Comboio Cercanías Madrid (~€2,60)",
 };
+
+// =========================================================================
+// BARCELONA (13 A 16 DE SETEMBRO)
+// =========================================================================
 
 export const DAYS_DATA = [
   {
     dayNumber: 1,
-    date: "Sábado, 13 de Setembro",
-    title: "Primeiro Olhar & Shabat",
-    subtitle: "Chegada matinal, contemplação arquitetônica e brisa mediterrânea",
+    city: "barcelona",
+    cityName: "Barcelona",
+    date: "Domingo, 13 de Setembro",
+    title: "Chegada & O Eixo Gaudí",
+    subtitle: "Desembarque matinal, check-in na base e imersão nas três maiores obras de Antoni Gaudí",
     themeColor: "#E76F51",
     accentColor: "#F4A261",
     gradient: "linear-gradient(135deg, #1f120e 0%, #381a13 50%, #0d0d12 100%)",
     specialNotice: {
-      type: "shabbat",
-      title: "Observância do Shabat (Até 20:03)",
-      description: "Até o pôr do sol (20:03), faremos um passeio 100% contemplativo e gratuito: caminhadas pelos bulevares, admiração das fachadas de Gaudí e orla da praia sem gastos. Após 20:03, celebraremos com o primeiro jantar catalão!"
+      type: "highlight",
+      title: "Dia de Chegada & Eixo Modernista",
+      description: "Chegada às 10:40 no El Prat. Como a base fica na Avinguda de Gaudí, iniciamos a visitação com a Sagrada Família (a 2 min a pé) e seguimos pelo Passeig de Gràcia (La Pedrera e Casa Batlló)."
     },
-    costEstimate: 0,
+    googleMapsDayRoute: "https://www.google.com/maps/dir/Aeroport+de+Barcelona-El+Prat/Avinguda+de+Gaud%C3%AD,+27,+Barcelona/Bas%C3%ADlica+de+la+Sagrada+Fam%C3%ADlia,+Barcelona/Casa+Mil%C3%A0,+Barcelona/Casa+Batll%C3%B3,+Barcelona",
+    costEstimate: 80,
     attractions: [
       {
-        id: "checkin_gaudi",
-        name: "Chegada & Avinguda de Gaudí",
-        time: "11:00 - 12:00",
-        period: "Manhã",
-        category: "Hospedagem & Recepção",
+        id: "chegada_elprat_gaudi",
+        name: "Chegada a Barcelona & Check-in na Av. de Gaudí",
+        time: "10:40 - 14:00",
+        period: "Manhã / Almoço",
+        category: "Chegada & Logística",
         price: 0,
         priceFormatted: "Grátis",
         isOptional: false,
         image: "/images/barcelona_hero.jpg",
-        description: "Desembarque no aeroporto às 10:35 e chegada à nossa hospedagem na Avinguda de Gaudí 27. Deixar malas, respirar o ar da Catalunha e abrir a janela com vista privilegiada para o Eixample.",
-        routeFromHotel: "Local de partida (Avinguda de Gaudí 27)",
-        tips: "Boulevard arborizado exclusivo para pedestres com quiosques e vista monumental.",
-        duration: "1h"
+        description: "Pouso no Aeroporto El Prat às 10:40. Deslocação até ao alojamento na Avinguda de Gaudí 27 (Aerobús até Plaça Catalunya + metrô ou Linha L9 Sud + L5). Check-in, largar as malas e almoço tranquilo nos cafés da avenida pedonal.",
+        routeFromHotel: "Desembarque no Aeroporto BCN → Metrô L9/L5 ou Aerobús até Av. de Gaudí 27",
+        tips: "Aproveite para comprar o cartão de transporte T-Casual de 10 viagens nas máquinas da estação.",
+        duration: "3h20",
+        coordinates: { lat: 41.4063, lng: 2.1764 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Avinguda+de+Gaudi+27+Barcelona"
       },
       {
-        id: "sagrada_exterior",
-        name: "Sagrada Família (Fachadas Exteriores)",
-        time: "12:00 - 13:30",
-        period: "Manhã / Tarde",
-        category: "Arquitetura / Gaudí",
-        price: 0,
-        priceFormatted: "Grátis (Exterior)",
+        id: "sagrada_familia_interior",
+        name: "Templo Expiatório da Sagrada Família",
+        time: "14:30 - 16:30",
+        period: "Tarde",
+        category: "Patrimônio UNESCO / Gaudí",
+        price: 26,
+        priceFormatted: "€26,00 a €36,00",
+        ticketUrl: "https://sagradafamilia.org/en/tickets",
         isOptional: false,
         image: "/images/sagrada_ext.jpg",
-        description: "A apenas 2 minutos a pé da nossa porta! Momento de contemplação da Façana da Natividad e Façana da Paixão. Detalhes bíblicos esculturais esculpidos na pedra por Antoni Gaudí.",
-        routeFromHotel: "🚶 2 minutos a pé (180 metros)",
-        tips: "O parque em frente (Plaça de Gaudí) tem o lago com o reflexo perfeito para fotos contemplativas.",
-        duration: "1h30"
+        description: "A obra-prima inacabada de Antoni Gaudí situada a apenas 2 minutos a pé da nossa base! Interior grandioso com colunas em forma de árvore e vitrais que filtram a luz da tarde num espetáculo de cores. Fachadas do Nascimento e da Paixão e museu subterrâneo.",
+        routeFromHotel: "🚶 Apenas 2 minutos a pé descendo a Avinguda de Gaudí (180 metros)",
+        tips: "OBRIGATÓRIO comprar ingresso com semanas de antecedência. Baixe o app com audioguia em português.",
+        duration: "2h",
+        coordinates: { lat: 41.4036, lng: 2.1744 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Sagrada+Familia+Barcelona"
       },
       {
-        id: "sant_pau",
-        name: "Boulevard Gaudí & Recinte Modernista de Sant Pau",
-        time: "13:30 - 15:00",
-        period: "Tarde",
-        category: "Patrimônio UNESCO",
-        price: 0,
-        priceFormatted: "Grátis (Passeio exterior)",
+        id: "casa_mila_pedrera",
+        name: "Casa Milà (La Pedrera)",
+        time: "17:00 - 18:15",
+        period: "Fim de Tarde",
+        category: "Gaudí / Terraço Escultural",
+        price: 28,
+        priceFormatted: "~€25,00 a €28,00",
+        ticketUrl: "https://www.lapedrera.com/en/visits",
         isOptional: false,
-        image: "/images/sant_pau.jpg",
-        description: "Caminhada relaxante subindo toda a Avinguda de Gaudí até o magnífico complexo modernista de Sant Pau, projetado por Lluís Domènech i Montaner.",
-        routeFromHotel: "🚶 7 minutos subindo a avenida (500 metros)",
-        tips: "Ângulo fotográfico clássico da avenida alinhando Sant Pau e Sagrada Família.",
-        duration: "1h30"
+        image: "/images/casa_mila.jpg",
+        description: "Edifício icônico no Passeig de Gràcia com fachada de pedra ondulada sem paredes de sustentação convencionais. Destaque para o terraço escultural dos 'Guerreiros Medievais' (chaminés) e o sótão dos arcos catenários de tijolo.",
+        routeFromHotel: "🚇 Metrô L5 (Sagrada Família → Diagonal, 6 min) ou caminhada agradável de 15 min",
+        tips: "A vista do terraço no fim de tarde enquadra o Eixample e a Sagrada Família ao fundo.",
+        duration: "1h15",
+        coordinates: { lat: 41.3954, lng: 2.1620 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Casa+Mila+Barcelona"
       },
       {
-        id: "eixample_walk",
-        name: "Passeig de Gràcia (Fachadas Batlló & Milà)",
-        time: "15:30 - 17:00",
-        period: "Tarde",
-        category: "Passeio Urbano",
-        price: 0,
-        priceFormatted: "Grátis (Fachadas)",
+        id: "casa_batllo",
+        name: "Casa Batlló (A Casa do Dragão)",
+        time: "18:30 - 19:45",
+        period: "Início da Noite",
+        category: "Gaudí / Experiência Imersiva",
+        price: 29,
+        priceFormatted: "~€29,00 a €35,00",
+        ticketUrl: "https://www.casabatllo.es/en/online-tickets/",
         isOptional: false,
         image: "/images/casa_batllo.jpg",
-        description: "Caminhada agradável pelo 'Quadrat d'Or' (Quadrado de Ouro) do Eixample, admirando o dragão no teto da Casa Batlló e as curvas de pedra da Casa Milà sob a luz dourada do fim de tarde.",
-        routeFromHotel: "🚶 20 min a pé ou Metrô L5 (Sagrada Família → Diagonal)",
-        tips: "Ideal para apreciar a arquitetura modernista catalã sem filas.",
-        duration: "1h30"
+        description: "Localizada a apenas 3 quarteirões da Casa Milà, na famosa 'Maçã da Discórdia'. Fachada de mosaicos coloridos (trencadís), varandas que lembram máscaras/ossos e telhado que reproduz o dorso escamoso do dragão de São Jorge.",
+        routeFromHotel: "🚶 4 minutos a pé descendo o Passeig de Gràcia a partir da Casa Milà (350 metros)",
+        tips: "O ingresso inclui audioguia de realidade aumentada e a sala imersiva Gaudí Cube.",
+        duration: "1h15",
+        coordinates: { lat: 41.3916, lng: 2.1650 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Casa+Batllo+Barcelona"
       },
       {
-        id: "barceloneta_sunset",
-        name: "Orla de Barceloneta & Pôr do Sol",
-        time: "17:30 - 20:03",
-        period: "Fim de Tarde / Pôr do Sol",
-        category: "Natureza & Praia",
-        price: 0,
-        priceFormatted: "Grátis",
-        isOptional: false,
-        image: "/images/barceloneta_beach.jpg",
-        description: "Sentir a brisa do Mar Mediterrâneo, caminhar no calçadão ladeado por palmeiras e assistir ao pôr do sol às 20:03 que encerra o Shabat.",
-        routeFromHotel: "🚇 Metrô L4 (Verdaguer / Girona → Barceloneta) ~15 min",
-        tips: "Pôr do sol oficial às 20:03. Momento de transição perfeito para o jantar de abertura.",
-        duration: "2h30"
-      },
-      {
-        id: "jantar_sabado",
-        name: "Jantar Festivo de Abertura (Pós-Shabat)",
-        time: "20:30 - 22:30",
+        id: "jantar_domingo",
+        name: "Jantar no Eixample / Avinguda de Gaudí",
+        time: "20:00 - 22:00",
         period: "Noite",
         category: "Gastronomia Catalã",
-        price: 30,
-        priceFormatted: "Gasto pessoal (~€25-35)",
+        price: 25,
+        priceFormatted: "Consumo pessoal (~€20-30)",
         isOptional: false,
-        image: "/images/la_boqueria.jpg",
-        description: "Após as 20:03, primeiro jantar oficial do grupo em El Born ou orla marítima com tapas, paella de frutos do mar/vegetais e sobremesas catalãs.",
-        routeFromHotel: "🚶 Caminhada no Born ou Metrô de volta para Avinguda Gaudí",
-        tips: "Restaurantes recomendados: 7 Portes, El Xampanyet ou tapearias na Plaça de Santa Maria del Mar.",
-        duration: "2h"
+        image: "/images/sant_pau.jpg",
+        description: "Encerramento do primeiro dia com tapas vegetarianas/de frutos do mar, paella de vegetais e pratos catalães nas charmosas ruas de Eixample ou retornando aos restaurantes da Avinguda de Gaudí.",
+        routeFromHotel: "🚶 Caminhada no Eixample ou Metrô L5 de volta para Sagrada Família",
+        tips: "Experimente Pan con Tomate (pão catalão com tomate e azeite de oliva) e Patatas Bravas no primeiro jantar.",
+        duration: "2h",
+        coordinates: { lat: 41.4063, lng: 2.1764 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Avinguda+de+Gaudi+Barcelona"
       }
     ]
   },
   {
     dayNumber: 2,
-    date: "Domingo, 14 de Setembro",
-    title: "Obras-Primas de Gaudí & Fonte Mágica",
-    subtitle: "Imersão total no gênio de Gaudí por dentro e espetáculo de águas à noite",
+    city: "barcelona",
+    cityName: "Barcelona",
+    date: "Segunda-feira, 14 de Setembro",
+    title: "Feira, Parques & Ciência",
+    subtitle: "Mercado de pulgas com teto espelhado, oásis verde da Ciutadella, museu interativo e pôr do sol no Parc Güell",
     themeColor: "#2A9D8F",
     accentColor: "#E9C46A",
     gradient: "linear-gradient(135deg, #0e1e1c 0%, #153833 50%, #0d0d12 100%)",
     specialNotice: {
       type: "highlight",
-      title: "Noite de Show na Fonte Mágica!",
-      description: "Em setembro, o show de luzes e música da Fonte Mágica de Montjuïc opera nas noites de quarta a domingo. Hoje (domingo) é a noite perfeita para assistir ao espetáculo às 21:00!"
+      title: "Segunda-feira: Dia da Feira do Rolo (Encants)!",
+      description: "O Mercat dels Encants só abre às segundas, quartas, sextas e sábados — por isso hoje é o dia perfeito! Agrupamos também o museu CosmoCaixa e o Parc Güell na zona alta."
     },
-    costEstimate: 114,
+    googleMapsDayRoute: "https://www.google.com/maps/dir/Avinguda+de+Gaud%C3%AD,+27,+Barcelona/Mercat+dels+Encants,+Barcelona/Arc+de+Triomf,+Barcelona/Parc+de+la+Ciutadella,+Barcelona/CosmoCaixa,+Barcelona/Park+G%C3%BCell,+Barcelona",
+    costEstimate: 16,
     attractions: [
       {
-        id: "sagrada_interior",
-        name: "Sagrada Família (Interior & Torres)",
+        id: "mercat_encants",
+        name: "Mercat dels Encants (Feira do Rolo)",
         time: "09:00 - 11:00",
         period: "Manhã",
-        category: "Gaudí / Monumento",
-        price: 26,
-        priceFormatted: "€26,00",
-        ticketUrl: "https://sagradafamilia.org/en/tickets",
-        isOptional: false,
-        image: "/images/sagrada_ext.jpg",
-        description: "Visita com ingresso marcado ao interior da basílica. A luz matinal atravessa os vitrais policromáticos em tons de azul, verde, amarelo e vermelho criando uma floresta mágica de colunas.",
-        routeFromHotel: "🚶 2 minutos a pé da nossa hospedagem",
-        tips: "Comprar com 3 a 4 semanas de antecedência! Baixar o app oficial com audioguia em português.",
-        duration: "2h"
-      },
-      {
-        id: "casa_vicens_visit",
-        name: "Casa Vicens (Primeira Casa de Gaudí)",
-        time: "11:30 - 13:00",
-        period: "Manhã",
-        category: "Gaudí / Vila de Gràcia",
-        price: 22,
-        priceFormatted: "€22,00",
-        ticketUrl: "https://casabatllo.es/en/online-tickets/",
-        isOptional: false,
-        image: "/images/casa_vicens.jpg",
-        description: "O manifesto inaugural de Antoni Gaudí: azulejos verdes e brancos, influências orientais mudéjares e interiores deslumbrantes no coração do bairro boêmio de Gràcia.",
-        routeFromHotel: "🚶 20 min caminhando pelo charmoso bairro de Gràcia ou Metrô L5/L3",
-        tips: "Muito mais tranquila que as outras casas, perfeita para fotos sem multidões.",
-        duration: "1h30"
-      },
-      {
-        id: "parc_guell_visit",
-        name: "Parc Güell (Zona Monumental)",
-        time: "14:30 - 16:30",
-        period: "Tarde",
-        category: "Parque UNESCO",
-        price: 18,
-        priceFormatted: "€18,00",
-        ticketUrl: "https://parkguell.barcelona/en/buy-tickets",
-        isOptional: false,
-        image: "/images/parc_guell.jpg",
-        description: "O banco ondulante de mosaicos trencadís mais famoso do mundo, a salamandra 'El Drac', a Sala Hipóstila e a vista panorâmica de toda a cidade até o mar.",
-        routeFromHotel: "🚌 Ônibus Linha 24 (direto até a entrada superior) ou Metrô L3 Vallcarca/Lesseps",
-        tips: "Horário rigoroso de entrada no ingresso. Levar protetor solar e calçado confortável.",
-        duration: "2h"
-      },
-      {
-        id: "casa_batllo_visit",
-        name: "Casa Batlló (A Casa do Dragão)",
-        time: "17:00 - 18:30",
-        period: "Fim de Tarde",
-        category: "Gaudí / Imersivo",
-        price: 29,
-        priceFormatted: "€29,00",
-        ticketUrl: "https://www.casabatllo.es/en/online-tickets/",
-        isOptional: false,
-        image: "/images/casa_batllo.jpg",
-        description: "Uma das obras mais fascinantes da história da arte mundial. Inclui a experiência de realidade aumentada 'Gaudí Cube' e o terraço do dragão de cerâmica.",
-        routeFromHotel: "🚇 Metrô L3 (Lesseps → Passeig de Gràcia, 8 min)",
-        tips: "O ingresso online inclui audioguia inteligente e tablets imersivos 3D.",
-        duration: "1h30"
-      },
-      {
-        id: "casa_mila_visit",
-        name: "Casa Milà / La Pedrera",
-        time: "18:45 - 20:00",
-        period: "Início da Noite",
-        category: "Gaudí / Terraço",
-        price: 29,
-        priceFormatted: "€29,00",
-        ticketUrl: "https://www.lapedrera.com/en/visits",
-        isOptional: false,
-        image: "/images/casa_mila.jpg",
-        description: "A apenas 2 quadras da Casa Batlló! O icônico terraço dos 'Guerreiros de Pedra' (chaminés esculturais) com vista aberta para o Eixample iluminado.",
-        routeFromHotel: "🚶 3 minutos a pé da Casa Batlló",
-        tips: "O sótão dos arcos catenários de tijolo parece o interior de uma baleia gigante.",
-        duration: "1h15"
-      },
-      {
-        id: "fonte_magica_show",
-        name: "Show da Fonte Mágica de Montjuïc",
-        time: "21:00 - 22:00",
-        period: "Noite",
-        category: "Espetáculo / Noite",
+        category: "Mercado & Curiosidades",
         price: 0,
         priceFormatted: "Grátis",
         isOptional: false,
-        image: "/images/fonte_magica.jpg",
-        description: "Espetáculo gratuito e emocionante de coreografia de jatos d'água, luzes multicoloridas e trilha sonora sinfônica/pop em frente ao imponente Palau Nacional.",
-        routeFromHotel: "🚇 Metrô L3 (Diagonal → Espanya, 12 min)",
-        tips: "Chegar 20 min antes para pegar um bom lugar nas escadarias da Plaça Espanya!",
-        duration: "1h"
+        image: "/images/mercat_encants.jpg",
+        description: "O mais emblemático mercado de pulgas de Barcelona, situado na Plaça de les Glòries. Complexo espetacular com teto espelhado futurista onde se encontra de tudo: antiguidades, livros raros, colecionáveis, eletrônicos e curiosidades.",
+        routeFromHotel: "🚶 15 min a pé da base ou Metrô L2 (Sagrada Família → Monumental / Glòries, 5 min)",
+        tips: "Chegue cedo para ver os leilões tradicionais e fotografar o teto espelhado.",
+        duration: "2h",
+        coordinates: { lat: 41.4011, lng: 2.1868 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Mercat+dels+Encants+Barcelona"
+      },
+      {
+        id: "ciutadella_arc_triomf",
+        name: "Parc de la Ciutadella & Arco do Triunfo",
+        time: "11:15 - 13:00",
+        period: "Manhã / Meio-dia",
+        category: "Parque & Monumento",
+        price: 0,
+        priceFormatted: "Grátis",
+        isOptional: false,
+        image: "/images/parc_ciutadella.jpg",
+        description: "Passeio pelo majestoso Arco do Triunfo de tijolos avermelhados e descida pelo bulevar até ao maior parque central. Contemplação da Cascada Monumental (desenhada com participação do jovem Gaudí) e lago central.",
+        routeFromHotel: "🚋 Tram T4 de Glòries direto até Ciutadella ou caminhada agradável de 12 min",
+        tips: "Excelente momento para relaxar na sombra. Almoce no bairro vizinho de El Born (13:00–14:15).",
+        duration: "1h45",
+        coordinates: { lat: 41.3888, lng: 2.1874 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Parc+de+la+Ciutadella+Barcelona"
+      },
+      {
+        id: "cosmocaixa_ciencia",
+        name: "CosmoCaixa (Museu da Ciência)",
+        time: "14:30 - 17:00",
+        period: "Tarde",
+        category: "Museu Interativo & Natureza",
+        price: 6,
+        priceFormatted: "~€6,00",
+        ticketUrl: "https://cosmocaixa.org/en/",
+        isOptional: false,
+        image: "/images/cosmocaixa.jpg",
+        description: "Um dos museus de ciência mais impressionantes e baratos da Europa! Abriga o 'Bosque Inundado' (uma floresta tropical amazônica viva indoor de 1.000m² com peixes e árvores reais), o Planetário e dezenas de experimentos interativos de física e astronomia.",
+        routeFromHotel: "🚇 Metrô L1/L4 até Plaça Catalunya + Trem FGC Linha L7 até Av. Tibidabo + 5 min caminhada",
+        tips: "Ingresso super acessível (€6). Não perca a estufa da floresta amazônica com chuva simulada!",
+        duration: "2h30",
+        coordinates: { lat: 41.4132, lng: 2.1317 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=CosmoCaixa+Barcelona"
+      },
+      {
+        id: "parc_guell_sunset",
+        name: "Parque Güell (Zona Monumental & Pôr do Sol)",
+        time: "17:45 - 19:30",
+        period: "Fim de Tarde / Pôr do Sol",
+        category: "Patrimônio UNESCO / Gaudí",
+        price: 10,
+        priceFormatted: "€10,00 a €18,00",
+        ticketUrl: "https://parkguell.barcelona/en/buy-tickets",
+        isOptional: false,
+        image: "/images/parc_guell.jpg",
+        description: "Parque modernista nas colinas com vista desafogada sobre Barcelona e o mar. Famoso banco ondulante de mosaicos trencadís, a escadaria monumental com a salamandra 'El Drac' e a imponente Sala Hipóstila sob as luzes douradas do pôr do sol.",
+        routeFromHotel: "🚌 Ônibus V19 ou Táxi rápido (10 min) direto do CosmoCaixa até à entrada do Parc Güell",
+        tips: "Horário rígido de entrada com ingresso marcado. Vista panorâmica espetacular do pôr do sol!",
+        duration: "1h45",
+        coordinates: { lat: 41.4145, lng: 2.1527 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Park+Guell+Barcelona"
       }
     ]
   },
   {
     dayNumber: 3,
-    date: "Segunda, 15 de Setembro",
-    title: "Coração Histórico & Bairro Gótico",
-    subtitle: "Ruelas medievais romanas, aromas de La Boqueria e Parque de la Ciutadella",
-    themeColor: "#8338EC",
-    accentColor: "#C77DFF",
-    gradient: "linear-gradient(135deg, #1b0e2b 0%, #30134f 50%, #0d0d12 100%)",
+    city: "barcelona",
+    cityName: "Barcelona",
+    date: "Terça-feira, 15 de Setembro",
+    title: "Centro Gótico, Barça & Praia",
+    subtitle: "Catedral matinal gratuita, labirinto gótico, aromas de La Boqueria, tour no Camp Nou, mirante de Montjuïc e brisa do Mediterrâneo",
+    themeColor: "#3A86FF",
+    accentColor: "#00F5D4",
+    gradient: "linear-gradient(135deg, #091a2e 0%, #0d2c52 50%, #0d0d12 100%)",
     specialNotice: {
-      type: "tip",
-      title: "Tudo 100% a Pé no Centro",
-      description: "Este dia é quase inteiramente gratuito em ingressos, focado em viver a história de mais de 2.000 anos de Barcino (a Barcelona romana e medieval)."
+      type: "highlight",
+      title: "Logística Perfeita na Linha L3 do Metrô",
+      description: "Aproveite a entrada gratuita na Catedral logo cedo (08h30–09h30). A Linha L3 conecta diretamente La Boqueria (Liceu) ao Camp Nou (Palau Reial) e Montjuïc (Espanya)."
     },
-    costEstimate: 14,
+    googleMapsDayRoute: "https://www.google.com/maps/dir/Catedral+de+Barcelona/Pont+del+Bisbe,+Barcelona/Mercat+de+la+Boqueria,+Barcelona/Spotify+Camp+Nou,+Barcelona/Museu+Nacional+d'Art+de+Catalunya,+Barcelona/Platja+de+la+Barceloneta,+Barcelona/Font+M%C3%A0gica+de+Montju%C3%AFc,+Barcelona",
+    costEstimate: 40,
     attractions: [
       {
-        id: "boqueria_market",
-        name: "Mercat de la Boqueria & Las Ramblas",
-        time: "09:00 - 10:30",
+        id: "catedral_barcelona_gratis",
+        name: "Catedral de Barcelona (La Seu — Acesso Gratuito)",
+        time: "08:30 - 09:30",
         period: "Manhã",
-        category: "Mercado & Cultura",
+        category: "Patrimônio Histórico / Gótico",
         price: 0,
-        priceFormatted: "Grátis (Entrada)",
-        isOptional: false,
-        image: "/images/la_boqueria.jpg",
-        description: "O mercado mais famoso da Europa! Sucos de frutas frescas cortadas na hora (€2), queijos artesanais, cones de presunto ibérico e energia vibrante.",
-        routeFromHotel: "🚇 Metrô L2 (Sagrada Família → Passeig de Gràcia) + L3 (Liceu) ~15 min",
-        tips: "Melhor horário para visitar é pela manhã, antes das grandes excursões turísticas.",
-        duration: "1h30"
-      },
-      {
-        id: "catedral_bcn",
-        name: "Catedral de Barcelona (La Seu)",
-        time: "11:00 - 12:15",
-        period: "Manhã",
-        category: "Histórico / Gótico",
-        price: 14,
-        priceFormatted: "€14,00",
+        priceFormatted: "Grátis (08h30 às 12h30)",
         ticketUrl: "https://catedralbcn.org/en/visit/",
         isOptional: false,
         image: "/images/catedral_barcelona.jpg",
-        description: "Majestosa catedral gótica do século XIV dedicada a Santa Eulália, com seu claustro secular habitado por 13 gansos brancos e terraço com vista 360° da Cidade Velha.",
-        routeFromHotel: "🚶 5 minutos a pé da Boqueria pelo Bairro Gótico",
-        tips: "O elevador leva direto ao terraço panorâmico da catedral.",
-        duration: "1h15"
+        description: "Acesso gratuito no horário matinal dedicado à oração e culto (08h30 às 12h30). Imponente sé gótica catalã dedicada a Santa Eulália, com interior solene e claustro histórico com palmeiras e os tradicionais 13 gansos brancos.",
+        routeFromHotel: "🚇 Metrô L2 (Sagrada Família → Passeig de Gràcia) + L3 (Liceu) ou L4 (Jaume I) ~15 min",
+        tips: "Entrada gratuita pela manhã. Vista o interior respeitando o ambiente de culto (sem flash).",
+        duration: "1h",
+        coordinates: { lat: 41.3839, lng: 2.1762 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Catedral+de+Barcelona"
       },
       {
-        id: "pont_bisbe_gotico",
-        name: "Pont del Bisbe & Labirinto Gótico",
-        time: "12:15 - 13:30",
-        period: "Meio-dia",
+        id: "gotico_pont_bisbe",
+        name: "Bairro Gótico & Pont del Bisbe",
+        time: "09:30 - 11:00",
+        period: "Manhã",
         category: "História Medieval",
         price: 0,
         priceFormatted: "Grátis",
         isOptional: false,
         image: "/images/pont_del_bisbe.jpg",
-        description: "Caminhada pelas ruelas de pedra, Plaça del Rei (sede dos condes de Barcelona), Plaça Sant Felip Neri e a famosa Ponte do Bispo neogótica sobre a Carrer del Bisbe.",
+        description: "Ao sair da Catedral, mergulho direto no labirinto de ruelas medievais. Paragem na famosa Pont del Bisbe (ponte neogótica suspensa com a misteriosa caveira esculpida), Plaça del Rei e Plaça Sant Jaume.",
         routeFromHotel: "🚶 Imediatamente adjacente à Catedral de Barcelona",
-        tips: "Procure a caveira esculpida sob a ponte — diz a lenda que dá sorte fazer um pedido olhando para ela.",
-        duration: "1h15"
+        tips: "Diz a lenda que fazer um pedido olhando para a adaga na caveira sob a ponte traz boa sorte.",
+        duration: "1h30",
+        coordinates: { lat: 41.3833, lng: 2.1766 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Pont+del+Bisbe+Barcelona"
       },
       {
-        id: "almoco_born",
-        name: "Almoço em El Born / Santa Maria del Mar",
-        time: "13:30 - 15:00",
-        period: "Tarde",
-        category: "Gastronomia",
-        price: 20,
-        priceFormatted: "Gasto pessoal (~€15-25)",
+        id: "boqueria_mercado",
+        name: "Mercado La Boqueria & Las Ramblas",
+        time: "11:15 - 12:30",
+        period: "Manhã / Almoço Tapas",
+        category: "Mercado Tradicional",
+        price: 15,
+        priceFormatted: "Consumo pessoal (~€10-15)",
         isOptional: false,
-        image: "/images/barcelona_hero.jpg",
-        description: "Pausa para almoço no bairro mais charmoso de Barcelona, repleto de ruelas de artesãos, praças arborizadas e a basílica de Santa Maria del Mar.",
-        routeFromHotel: "🚶 5 minutos a pé saindo do Bairro Gótico",
-        tips: "Experimente 'Pintxos' bascos ou 'Pan con Tomate' com jamón ibérico.",
-        duration: "1h30"
+        image: "/images/la_boqueria.jpg",
+        description: "O mercado mais famoso da Espanha, com acesso direto pelas célebres Ramblas. Balcões repletos de frutas frescas cortadas, sumos tropicais naturais (€2), queijos artesanais, pães tradicionais e empanadas vegetarianas.",
+        routeFromHotel: "🚶 5 minutos a pé do Bairro Gótico até às Ramblas",
+        tips: "Excelente para provar frutas frescas, queijos artesanais e sumos naturais antes de seguir para o estádio.",
+        duration: "1h15",
+        coordinates: { lat: 41.3817, lng: 2.1716 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Mercat+de+la+Boqueria+Barcelona"
       },
       {
-        id: "parc_ciutadella_relax",
-        name: "Parque de la Ciutadella & Arc de Triomf",
+        id: "camp_nou_tour",
+        name: "Camp Nou (Barça Immersive Tour & Museu)",
+        time: "13:00 - 15:00",
+        period: "Tarde",
+        category: "Futebol & Museu Imersivo",
+        price: 28,
+        priceFormatted: "~€28,00",
+        ticketUrl: "https://www.fcbarcelona.com/en/tickets/tour-and-museum",
+        isOptional: false,
+        image: "/images/camp_nou.jpg",
+        description: "O santuário do futebol do FC Barcelona. Visita ao Barça Immersive Tour: museu interativo com os troféus da Champions League e bolas de ouro de Messi, sala imersiva circular 360° e miradouro panorâmico das obras do novo estádio Spotify Camp Nou.",
+        routeFromHotel: "🚇 Metrô L3 (Estação Liceu na porta da Boqueria → Palau Reial / Les Corts, 15 min direto)",
+        tips: "Passeio rápido e empolgante com fotos épicas na sala de troféus e maquetes da nova arena.",
+        duration: "2h",
+        coordinates: { lat: 41.3809, lng: 2.1228 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Camp+Nou+Barcelona"
+      },
+      {
+        id: "montjuic_mnac_mirador",
+        name: "Jardins de Montjuïc & MNAC (Mirante)",
         time: "15:30 - 17:30",
         period: "Tarde",
-        category: "Parque / Lazer",
-        price: 0,
-        priceFormatted: "Grátis",
+        category: "Arte, Jardins & Panoramas",
+        price: 12,
+        priceFormatted: "€12,00 (Esplanada Grátis)",
+        ticketUrl: "https://www.museunacional.cat/en/tickets",
         isOptional: false,
-        image: "/images/parc_ciutadella.jpg",
-        description: "Oásis verde da cidade com a monumental Cascada de Antoni Gaudí jovem, lago com barquinhos a remo e o majestoso Arco do Triunfo de tijolos avermelhados.",
-        routeFromHotel: "🚶 8 minutos a pé de El Born",
-        tips: "Ótimo lugar para descansar na grama, tomar um sorvete e recarregar as energias.",
-        duration: "2h"
+        image: "/images/mnac_montjuic.jpg",
+        description: "Palácio monumental no alto da colina de Montjuïc com a esplanada mais espetacular de Barcelona. Vista desafogada de 360° para a Plaça d'Espanya e para o horizonte da cidade até a Sagrada Família.",
+        routeFromHotel: "🚇 Metrô L3 (Palau Reial → Espanya, 10 min) + subida pelas escadas rolantes panorâmicas",
+        tips: "O acesso à grande esplanada e aos mirantes exteriores é 100% gratuito!",
+        duration: "2h",
+        coordinates: { lat: 41.3688, lng: 2.1534 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=MNAC+Barcelona"
       },
       {
-        id: "praia_tarde_livre",
-        name: "Praia de Barcelona & Chiringuitos",
-        time: "17:30 - 20:00",
-        period: "Fim de Tarde",
-        category: "Praia & Lazer",
+        id: "barceloneta_praia",
+        name: "Praia de La Barceloneta & Orla",
+        time: "18:00 - 20:30",
+        period: "Fim de Tarde / Noite",
+        category: "Praia & Lazer Marítimo",
         price: 0,
         priceFormatted: "Grátis",
         isOptional: false,
         image: "/images/barceloneta_beach.jpg",
-        description: "Caminhada da Ciutadella direto para o calçadão da praia de Bogatell / Barceloneta. Relaxamento à beira-mar, pés na areia e brisa do Mediterrâneo.",
-        routeFromHotel: "🚶 10 minutos a pé do Parque da Ciutadella",
-        tips: "Os quiosques de praia ('chiringuitos') oferecem sucos e petiscos com vista para o mar.",
-        duration: "2h30"
-      }
-    ]
-  },
-  {
-    dayNumber: 4,
-    date: "Terça, 16 de Setembro",
-    title: "Montjuïc, Camp Nou (Opcional) & Despedida",
-    subtitle: "Panoramas da colina de Montjuïc, opção FC Barcelona e grande encerramento",
-    themeColor: "#3A86FF",
-    accentColor: "#00F5D4",
-    gradient: "linear-gradient(135deg, #091a2e 0%, #0d2c52 50%, #0d0d12 100%)",
-    specialNotice: {
-      type: "split",
-      title: "Manhã Dividida: Camp Nou ou Jardins de Montjuïc",
-      description: "Para atender a todos do grupo: quem ama futebol faz o tour imersivo do Camp Nou, e quem prefere contemplação passeia pelos belíssimos Jardins de Montjuïc. Às 12:30, todos se reúnem na Plaça Espanya!"
-    },
-    costEstimate: 40,
-    attractions: [
-      {
-        id: "camp_nou_option",
-        name: "Opção A: Camp Nou (Barça Immersive Tour)",
-        time: "09:30 - 12:00",
-        period: "Manhã",
-        category: "Futebol / Interativo (OPCIONAL)",
-        price: 28,
-        priceFormatted: "€28,00",
-        ticketUrl: "https://www.fcbarcelona.com/en/tickets/tour-and-museum",
-        isOptional: true,
-        image: "/images/camp_nou.jpg",
-        description: "Experiência oficial do FC Barcelona: museu dos troféus de Messi e lendas, sala imersiva circular 360° e mirante das obras de modernização do novo Spotify Camp Nou.",
-        routeFromHotel: "🚇 Metrô L5 (Sagrada Família → Collblanc, 18 min sem baldeação)",
-        tips: "Ideal para os apaixonados por esporte! Quem não for fará a Opção B nos jardins.",
-        duration: "2h30"
+        description: "A praia urbana mais famosa da capital catalã. Caminhada pelo calçadão ladeado de palmeiras, relaxamento na areia, brisa do Mar Mediterrâneo e jantar à beira-mar com paella de vegetais ou frutos do mar.",
+        routeFromHotel: "🚇 Metrô L3 (Espanya → Drassanes) + caminhada pelo porto ou Metrô L4 (Barceloneta)",
+        tips: "Momento perfeito para relaxar os pés na areia e brindar ao pôr do sol mediterrâneo.",
+        duration: "2h30",
+        coordinates: { lat: 41.3784, lng: 2.1925 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Playa+de+la+Barceloneta+Barcelona"
       },
       {
-        id: "montjuic_gardens_option",
-        name: "Opção B: Jardins de Montjuïc & Mirador del Alcalde",
-        time: "09:30 - 12:00",
-        period: "Manhã",
-        category: "Natureza & Mirantes",
+        id: "fonte_magica_encerramento",
+        name: "Fonte Mágica de Montjuïc (Encerramento)",
+        time: "21:00 - 22:00",
+        period: "Noite",
+        category: "Espetáculo de Águas & Luz",
         price: 0,
         priceFormatted: "Grátis",
-        isOptional: true,
-        image: "/images/mnac_montjuic.jpg",
-        description: "Para quem não for ao estádio: passeio pelos exuberantes jardins botânicos e mirantes suspensos sobre o porto de Barcelona com vista de cruzeiros e do mar.",
-        routeFromHotel: "🚇 Metrô L2 (Sagrada Família → Paral·lel) + Funicular de Montjuïc",
-        tips: "Sombra agradável, fontes ornamentais e brisa refrescante na colina.",
-        duration: "2h30"
-      },
-      {
-        id: "ponto_encontro",
-        name: "Ponto de Encontro: Plaça d'Espanya & Torres Venezianas",
-        time: "12:30 - 13:00",
-        period: "Meio-dia",
-        category: "Ponto de Encontro",
-        price: 0,
-        priceFormatted: "Grátis",
-        isOptional: false,
-        image: "/images/barcelona_hero.jpg",
-        description: "Reunião de todo o grupo entre as monumentais Torres Venezianas da Plaça d'Espanya para subirmos juntos em direção ao Palácio de Montjuïc.",
-        routeFromHotel: "🚇 Estação de Metrô Espanya (Linhas L1, L3, L8)",
-        tips: "Escadas rolantes ao ar livre auxiliam a subida da colina confortavelmente.",
-        duration: "30 min"
-      },
-      {
-        id: "mnac_visit",
-        name: "Museu Nacional d'Art de Catalunya (MNAC & Mirante)",
-        time: "13:00 - 15:30",
-        period: "Tarde",
-        category: "Museu / Arte / Vista",
-        price: 12,
-        priceFormatted: "€12,00",
-        ticketUrl: "https://www.museunacional.cat/en/tickets",
-        isOptional: false,
-        image: "/images/mnac_montjuic.jpg",
-        description: "O majestoso Palau Nacional no topo da colina. Abriga a mais importante coleção de afrescos românicos do mundo e o terraço com a vista panorâmica definitiva de Barcelona.",
-        routeFromHotel: "🚶 Subida a pé pelas escadarias e esteiras rolantes da Plaça Espanya",
-        tips: "Mesmo sem entrar em todas as galerias, a vista das escadarias principais é imperdível.",
-        duration: "2h30"
-      },
-      {
-        id: "jardins_montjuic_todos",
-        name: "Jardins de Laribal & Anel Olímpico de 1992",
-        time: "15:30 - 17:30",
-        period: "Tarde",
-        category: "História & Jardins",
-        price: 0,
-        priceFormatted: "Grátis",
-        isOptional: false,
-        image: "/images/mnac_montjuic.jpg",
-        description: "Caminhada de todo o grupo pelo Estádio Olímpico Lluís Companys, a emblemática Torre de Telecomunicações de Santiago Calatrava e as pérgolas floridas de Laribal.",
-        routeFromHotel: "🚶 Caminhada suave pelos caminhos interligados de Montjuïc",
-        tips: "Ambiente calmo e cinematográfico com aroma de pinheiros e jasmins.",
-        duration: "2h"
-      },
-      {
-        id: "despedida_barcelona",
-        name: "Último Passeio na Avinguda de Gaudí & Malas",
-        time: "18:00 - 20:30",
-        period: "Fim de Tarde / Noite",
-        category: "Encerramento da Viagem",
-        price: 0,
-        priceFormatted: "Grátis",
-        isOptional: false,
-        image: "/images/sagrada_ext.jpg",
-        description: "Retorno à nossa base na Avinguda de Gaudí 27. Último café com vista para a Sagrada Família iluminada, empacotamento das malas e lembranças de uma viagem inesquecível.",
-        routeFromHotel: "🚇 Metrô L2 (Paral·lel → Sagrada Família) ou L5",
-        tips: "Comprar chocolates e turrón artesanal nos comércios da avenida para levar de presente!",
-        duration: "2h30"
+        image: "/images/fonte_magica.jpg",
+        description: "Espetáculo de coreografias de água, luzes coloridas e trilha sonora sinfônica na base de Montjuïc em frente à Plaça d'Espanya. Fecho perfeito para a passagem por Barcelona.",
+        routeFromHotel: "🚇 Metrô L3/L1 até Plaça d'Espanya",
+        tips: "Nota: sujeito à programação municipal hídrica. Ótima atmosfera noturna na Plaça d'Espanya.",
+        duration: "1h",
+        coordinates: { lat: 41.3712, lng: 2.1517 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Font+Magica+de+Montjuic+Barcelona"
       }
     ]
   }
 ];
 
+// =========================================================================
+// MADRID EXPRESS (16 DE SETEMBRO - QUARTA-FEIRA)
+// =========================================================================
+
+export const MADRID_LODGING_INFO = {
+  name: "Escala & Chegada em Madrid (Aeroporto Barajas / Centro)",
+  address: "Centro Histórico: Sol / Plaza Mayor / Gran Vía / Retiro, Madrid",
+  neighborhood: "Sol / Centro / Retiro",
+  highlights: [
+    "Voo BCN 10:35 → Desembarque MAD 13:45",
+    "Consigna de bagagens no Aeroporto (Left Luggage ~€10) e trem rápido ao centro",
+    "Roteiro dinâmico 100% a pé das 15:00 às 21:15 pelos maiores cartões-postais",
+    "Retorno ao Aeroporto às 22:00 para o voo noturno das 23:55"
+  ],
+  coordinates: { lat: 40.4168, lng: -3.7038 },
+  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Puerta+del+Sol+Madrid"
+};
+
+export const MADRID_TRIP_META = {
+  destination: "Madrid, Comunidade de Madrid, Espanha",
+  dates: "Quarta-feira, 16 de Setembro de 2026",
+  duration: "1 Tarde & Noite Express (13:45 às 23:55)",
+  arrival: "Quarta, 16/09 às 13:45 no Aeroporto Adolfo Suárez-Barajas (MAD)",
+  departure: "Quarta, 16/09 às 23:55 no Aeroporto Adolfo Suárez-Barajas (MAD)",
+  currency: "Euro (€)",
+  transportPass: "Comboio Cercanías C1/C10 (~€2,60) ou Metrô Linha 8 + Caminhada a pé no centro",
+};
+
+export const MADRID_DAYS_DATA = [
+  {
+    dayNumber: 4,
+    city: "madrid",
+    cityName: "Madrid",
+    date: "Quarta-feira, 16 de Setembro",
+    title: "Madrid Express — O Melhor da Capital em 1 Tarde",
+    subtitle: "Do marco do Quilômetro Zero ao Palácio Real, tapas em São Miguel, compras na Gran Vía e pôr do sol no Retiro",
+    themeColor: "#E63946",
+    accentColor: "#FFB703",
+    gradient: "linear-gradient(135deg, #2b0e12 0%, #4a151b 50%, #0d0d12 100%)",
+    specialNotice: {
+      type: "highlight",
+      title: "Roteiro Otimizado de Escala (13:45 às 23:55)",
+      description: "07:45 Check-out BCN → 10:35 Voo BCN-MAD → 13:45 Chegada MAD → 14:00 Malas na consigna e comboio ao centro → 15:00 a 21:15 Roteiro a pé → 22:00 Retorno ao Aeroporto → 23:55 Voo de regresso."
+    },
+    googleMapsDayRoute: "https://www.google.com/maps/dir/Aeropuerto+Adolfo+Su%C3%A1rez+Madrid-Barajas/Puerta+del+Sol,+Madrid/Plaza+Mayor,+Madrid/Mercado+de+San+Miguel,+Madrid/Palacio+Real+de+Madrid/Gran+V%C3%ADa,+Madrid/Plaza+de+Cibeles,+Madrid/Puerta+de+Alcal%C3%A1,+Madrid/Parque+de+El+Retiro,+Madrid",
+    costEstimate: 20,
+    attractions: [
+      {
+        id: "madrid_chegada_logistica",
+        name: "Desembarque em Madrid & Trem ao Centro",
+        time: "13:45 - 15:00",
+        period: "Meio-dia / Tarde",
+        category: "Chegada & Logística",
+        price: 13,
+        priceFormatted: "Consigna (~€10) + Trem (~€2,60)",
+        isOptional: false,
+        image: "/images/madrid_hero.jpg",
+        description: "Desembarque às 13:45 no Aeroporto Adolfo Suárez-Barajas. Deixar as malas no serviço de guarda-volumes (Consigna / Left Luggage, ~€10 por mala) e apanhar o comboio Cercanías C1/C10 ou Metrô L8 direto à estação Sol / Nuevos Ministerios.",
+        routeFromHotel: "Aeroporto T4 → Comboio Cercanías C1/C10 direto a Chamartín/Nuevos Ministerios/Sol (25 min)",
+        tips: "Viaje apenas com mochila leve para o centro para aproveitar a tarde com máxima liberdade.",
+        duration: "1h15",
+        coordinates: { lat: 40.4900, lng: -3.5676 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Aeropuerto+Madrid+Barajas+T4"
+      },
+      {
+        id: "madrid_sol_plaza_mayor",
+        name: "Porta do Sol & Plaza Mayor",
+        time: "15:00 - 16:30",
+        period: "Tarde",
+        category: "Centro Histórico & Símbolos",
+        price: 0,
+        priceFormatted: "Grátis",
+        isOptional: false,
+        image: "/images/puerta_del_sol.jpg",
+        description: "O epicentro da capital espanhola. Paragem no marco do Quilômetro Zero (origem das estradas da Espanha), estátua do Urso e do Medronheiro e caminhada de 4 minutos até à grandiosa Plaza Mayor com arcos simétricos dos Habsburgos e estátua de Felipe III.",
+        routeFromHotel: "🚶 Ponto de início no centro de Madrid (saída da estação Sol)",
+        tips: "Tire a clássica foto com os pés sobre o marco do Quilômetro Zero!",
+        duration: "1h30",
+        coordinates: { lat: 40.4168, lng: -3.7038 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Puerta+del+Sol+Madrid"
+      },
+      {
+        id: "madrid_mercado_san_miguel",
+        name: "Mercado de São Miguel (Lanche de Tapas)",
+        time: "16:30 - 17:15",
+        period: "Tarde / Degustação",
+        category: "Mercado Gastronômico",
+        price: 15,
+        priceFormatted: "Consumo pessoal (~€12-20)",
+        isOptional: false,
+        image: "/images/mercado_san_miguel.jpg",
+        description: "Mercado gastronômico do início do século XX preservado em estrutura de ferro fundido. Balcões com queijos artesanais manchego, empanadas vegetais, azeitonas temperadas, frutos do mar e tapas variadas. (Opção: Chocolateria San Ginés logo ao lado).",
+        routeFromHotel: "🚶 3 minutos a pé da Plaza Mayor (150 metros)",
+        tips: "Opção alternativa de lanche: churros com chocolate denso na Chocolateria San Ginés a 2 min.",
+        duration: "45 min",
+        coordinates: { lat: 40.4154, lng: -3.7090 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Mercado+de+San+Miguel+Madrid"
+      },
+      {
+        id: "madrid_palacio_almudena",
+        name: "Palácio Real de Madrid & Catedral de Almudena",
+        time: "17:30 - 18:30",
+        period: "Tarde",
+        category: "Realeza & Patrimônio",
+        price: 0,
+        priceFormatted: "Grátis (Exteriores e Jardins)",
+        isOptional: false,
+        image: "/images/palacio_real_madrid.jpg",
+        description: "O conjunto monumental mais imponente da monarquia espanhola. Fachada neoclássica do palácio voltada para a arborizada Plaza de Oriente, Jardins de Sabatini e a imponente Catedral de Almudena erguida logo em frente. (Opção: Templo de Debod a 10 min).",
+        routeFromHotel: "🚶 5 minutos a pé do Mercado de São Miguel subindo a Calle Mayor (400 metros)",
+        tips: "O miradouro junto à muralha do palácio tem vista desafogada para a Casa de Campo.",
+        duration: "1h",
+        coordinates: { lat: 40.4180, lng: -3.7143 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Palacio+Real+de+Madrid"
+      },
+      {
+        id: "madrid_gran_via_cibeles",
+        name: "Gran Vía & Praça de Cibeles",
+        time: "18:45 - 19:45",
+        period: "Fim de Tarde",
+        category: "Avenida Monumental & Compras",
+        price: 0,
+        priceFormatted: "Grátis",
+        isOptional: false,
+        image: "/images/plaza_cibeles.jpg",
+        description: "A avenida dos grandes teatros, lojas e edifícios emblemáticos (Metrópolis e Telefónica). Caminhada até à monumental Praça de Cibeles, com a célebre fonte esculpida em mármore diante do Palácio de Cibeles (sede da prefeitura) e Banco de España.",
+        routeFromHotel: "🚶 10 minutos a pé da Plaza de Oriente descendo a Gran Vía",
+        tips: "Momento ideal para compras rápidas de lembranças e roupas nas lojas da avenida.",
+        duration: "1h",
+        coordinates: { lat: 40.4195, lng: -3.6925 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Plaza+de+Cibeles+Madrid"
+      },
+      {
+        id: "madrid_puerta_alcala_retiro",
+        name: "Puerta de Alcalá & Jardins do Retiro",
+        time: "20:00 - 21:15",
+        period: "Início da Noite",
+        category: "Parque UNESCO & Monumento",
+        price: 0,
+        priceFormatted: "Grátis",
+        isOptional: false,
+        image: "/images/parque_retiro.jpg",
+        description: "O portal neoclássico de cinco vãos encomendado pelo rei Carlos III e entrada para o parque mais emblemático de Madrid (Patrimônio UNESCO). Passeio relaxante até ao Palácio de Cristal (pavilhão de vidro) e ao Grande Estanque sob a iluminação do entardecer.",
+        routeFromHotel: "🚶 5 minutos a pé de Cibeles até à Puerta de Alcalá (entrada do parque)",
+        tips: "O Palácio de Cristal iluminado sobre o lago é um dos cenários mais mágicos da cidade.",
+        duration: "1h15",
+        coordinates: { lat: 40.4136, lng: -3.6820 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Parque+del+Retiro+Madrid"
+      },
+      {
+        id: "madrid_jantar_despedida",
+        name: "Jantar Rápido & Retorno ao Aeroporto",
+        time: "21:15 - 22:00",
+        period: "Noite / Despedida",
+        category: "Gastronomia & Embarque",
+        price: 20,
+        priceFormatted: "Consumo pessoal (~€15-25)",
+        isOptional: false,
+        image: "/images/puerta_alcala.jpg",
+        description: "Últimas tapas vegetarianas/de frutos do mar e brinde no eixo Retiro / Atocha ou Recoletos antes de embarcar no Cercanías ou Metrô de volta ao Aeroporto Madrid-Barajas às 22:00 para o voo final das 23:55.",
+        routeFromHotel: "🚇 Estação Recoletos ou Atocha → Comboio Cercanías direto ao Aeroporto T4 (25 min)",
+        tips: "Chegada às 22:00 no aeroporto: recolha de malas na consigna e passagem na segurança para o voo das 23:55.",
+        duration: "45 min",
+        coordinates: { lat: 40.4110, lng: -3.6910 },
+        googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Estacion+de+Atocha+Madrid"
+      }
+    ]
+  }
+];
+
+// Madrid Optional Alternative Attractions
+export const MADRID_OPTIONAL_ATTRACTIONS = [
+  {
+    name: "Chocolateria San Ginés (Churros & Chocolate)",
+    category: "Gastronomia Tradicional",
+    price: 6.00,
+    priceFormatted: "~€6,00",
+    url: "https://chocolateriasangines.com/",
+    description: "Ao lado do Mercado de São Miguel. Churros estaladiços com chocolate denso desde 1894.",
+    location: "Perto da Plaza Mayor"
+  },
+  {
+    name: "Templo de Debod",
+    category: "História & Mirante",
+    price: 0,
+    priceFormatted: "Grátis",
+    description: "Templo egípcio do século II a.C. doado à Espanha, com vista espetacular da cidade.",
+    location: "A 10 min a pé do Palácio Real"
+  },
+  {
+    name: "Museu do Prado (Obras-Primas)",
+    category: "Arte & Pintura",
+    price: 15.00,
+    priceFormatted: "€15,00",
+    url: "https://www.museodelprado.es/en/visit-the-museum",
+    description: "Pinacoteca de Velázquez ('As Meninas') e Goya, adjacente aos Jardins do Retiro.",
+    location: "Paseo del Prado / Retiro"
+  }
+];
+
+// Pricing Breakdown
 export const PRICING_BREAKDOWN = [
   {
-    name: "Sagrada Família (Interior)",
+    name: "Sagrada Família (Interior & Torres)",
     price: 26.00,
-    day: "Dia 2 (Domingo)",
+    day: "Dia 1 (Dom 13/09)",
     status: "Essencial",
     category: "Gaudí",
     url: "https://sagradafamilia.org/en/tickets",
-    notes: "Comprar 3-4 semanas antes. Audioguia no app incluso."
+    notes: "Comprar com semanas de antecedência! Audioguia no app incluso."
   },
   {
-    name: "Casa Batlló (Blue Ticket)",
+    name: "Casa Batlló (Experiência Imersiva)",
     price: 29.00,
-    day: "Dia 2 (Domingo)",
+    day: "Dia 1 (Dom 13/09)",
     status: "Essencial",
     category: "Gaudí",
     url: "https://www.casabatllo.es/en/online-tickets/",
@@ -481,109 +596,203 @@ export const PRICING_BREAKDOWN = [
   },
   {
     name: "Casa Milà / La Pedrera",
-    price: 29.00,
-    day: "Dia 2 (Domingo)",
+    price: 25.00,
+    day: "Dia 1 (Dom 13/09)",
     status: "Essencial",
     category: "Gaudí",
     url: "https://www.lapedrera.com/en/visits",
-    notes: "Terraço dos guerreiros de pedra e sótão da baleia."
+    notes: "Terraço dos guerreiros de pedra e sótão com arcos de baleia."
   },
   {
-    name: "Casa Vicens",
-    price: 22.00,
-    day: "Dia 2 (Domingo)",
+    name: "CosmoCaixa (Museu da Ciência)",
+    price: 6.00,
+    day: "Dia 2 (Seg 14/09)",
     status: "Essencial",
-    category: "Gaudí",
-    url: "https://casavicens.org/tickets/",
-    notes: "Primeira casa de Gaudí em Gràcia. Menos cheia e super fotogênica."
+    category: "Ciência",
+    url: "https://cosmocaixa.org/en/",
+    notes: "Floresta amazônica indoor de 1.000m² e planetário interativo."
   },
   {
-    name: "Parc Güell (Zona Monumental)",
-    price: 18.00,
-    day: "Dia 2 (Domingo)",
+    name: "Parque Güell (Zona Monumental)",
+    price: 10.00,
+    day: "Dia 2 (Seg 14/09)",
     status: "Essencial",
     category: "Parque UNESCO",
     url: "https://parkguell.barcelona/en/buy-tickets",
-    notes: "Ingresso com horário rígido. Banco ondulante e dragão."
-  },
-  {
-    name: "Catedral de Barcelona (La Seu)",
-    price: 14.00,
-    day: "Dia 3 (Segunda)",
-    status: "Essencial",
-    category: "Histórico",
-    url: "https://catedralbcn.org/en/visit/",
-    notes: "Acesso ao claustro dos 13 gansos e terraço panorâmico."
-  },
-  {
-    name: "Museu Nacional d'Art de Catalunya (MNAC)",
-    price: 12.00,
-    day: "Dia 4 (Terça)",
-    status: "Essencial",
-    category: "Museu / Vistas",
-    url: "https://www.museunacional.cat/en/tickets",
-    notes: "Terraço panorâmico da colina e arte românica."
+    notes: "Ingresso com horário marcado. Banco ondulante e dragão el Drac."
   },
   {
     name: "Camp Nou (Barça Immersive Tour)",
     price: 28.00,
-    day: "Dia 4 (Terça)",
-    status: "Opcional (Futebol)",
+    day: "Dia 3 (Ter 15/09)",
+    status: "Destaque",
     category: "Esporte",
     url: "https://www.fcbarcelona.com/en/tickets/tour-and-museum",
-    notes: "Opcional para os fãs do Barça. Quem não for visita os Jardins de Montjuïc grátis."
+    notes: "Museu dos troféus do Barça, sala 360° e vista das obras da nova arena."
   },
   {
-    name: "Cartão de Transporte T-Casual (10 Viagens)",
-    price: 13.00,
+    name: "MNAC (Museu Nacional d'Art de Catalunya)",
+    price: 12.00,
+    day: "Dia 3 (Ter 15/09)",
+    status: "Essencial",
+    category: "Arte / Mirador",
+    url: "https://www.museunacional.cat/en/tickets",
+    notes: "Arte românica e gótica. A grande esplanada exterior tem acesso gratuito."
+  },
+  {
+    name: "Cartão T-Casual Barcelona (10 Viagens)",
+    price: 12.15,
     day: "Todos os Dias",
     status: "Transporte",
     category: "Mobilidade",
     url: "https://www.tmb.cat/en/barcelona-fares-metro-bus/single-tickets-and-travel-cards/t-casual",
-    notes: "Válido para metrô, ônibus e tram na Zona 1. Compra nas máquinas do metrô."
+    notes: "Válido para metrô, ônibus e tram na Zona 1 de Barcelona."
   }
 ];
 
 export const FREE_ATTRACTIONS = [
-  { name: "Sagrada Família (Vista Exterior & Lago)", day: "Dia 1 & Todos", cost: "€0,00" },
-  { name: "Avinguda de Gaudí Boulevard", day: "Todos os dias", cost: "€0,00" },
-  { name: "Hospital de Sant Pau (Fachadas)", day: "Dia 1", cost: "€0,00" },
-  { name: "Passeig de Gràcia (Fachadas Modernistas)", day: "Dia 1", cost: "€0,00" },
-  { name: "Praia de Barceloneta / Bogatell", day: "Dias 1, 3 & 4", cost: "€0,00" },
-  { name: "Mercat de la Boqueria (Passeio)", day: "Dia 3", cost: "€0,00" },
-  { name: "Las Ramblas & Plaça Reial", day: "Dia 3", cost: "€0,00" },
-  { name: "Pont del Bisbe & Bairro Gótico", day: "Dia 3", cost: "€0,00" },
-  { name: "Parque de la Ciutadella & Cascada", day: "Dia 3", cost: "€0,00" },
-  { name: "Show da Fonte Mágica de Montjuïc (Domingo 21h)", day: "Dia 2", cost: "€0,00" },
-  { name: "Jardins de Montjuïc & Mirador del Alcalde", day: "Dia 4", cost: "€0,00" },
-  { name: "Plaça d'Espanya & Torres Venezianas", day: "Dia 4", cost: "€0,00" },
-  { name: "Anel Olímpico de Barcelona 1992", day: "Dia 4", cost: "€0,00" }
+  { name: "Catedral de Barcelona (La Seu — Horário de Oração 08h30-12h30)", day: "Dia 3 (Ter 15/09)", cost: "€0,00" },
+  { name: "Mercat dels Encants (Feira do Rolo)", day: "Dia 2 (Seg 14/09)", cost: "€0,00" },
+  { name: "Avinguda de Gaudí Boulevard Pedonal", day: "Todos os dias", cost: "€0,00" },
+  { name: "Parc de la Ciutadella & Arco do Triunfo", day: "Dia 2 (Seg 14/09)", cost: "€0,00" },
+  { name: "Bairro Gótico & Pont del Bisbe", day: "Dia 3 (Ter 15/09)", cost: "€0,00" },
+  { name: "Mercat de la Boqueria & Las Ramblas", day: "Dia 3 (Ter 15/09)", cost: "€0,00" },
+  { name: "Praia de La Barceloneta & Calçadão", day: "Dia 3 (Ter 15/09)", cost: "€0,00" },
+  { name: "Esplanada e Miradouros de Montjuïc", day: "Dia 3 (Ter 15/09)", cost: "€0,00" },
+  { name: "Fonte Mágica de Montjuïc (Show de Luzes)", day: "Dia 3 (Ter 15/09)", cost: "€0,00" }
 ];
 
 export const PRACTICAL_TIPS = [
   {
-    title: "Transporte Econômico e Rápido",
+    title: "Transporte Integrado T-Casual",
     icon: "Train",
-    content: "Compre o cartão T-Casual nas máquinas de qualquer estação de metrô (€13 por 10 viagens integradas). Como nossa hospedagem na Avinguda de Gaudí fica a 200m do metrô e muitas atrações são feitas a pé, 1 ou 2 cartões T-Casual por pessoa cobrirão 100% da estadia com conforto extremo."
+    content: "Compre o cartão T-Casual nas máquinas de qualquer estação de metrô (~€12,15 por 10 viagens integradas na Zona 1). Como a base na Avinguda de Gaudí fica a 200m do metrô, 1 ou 2 cartões por pessoa cobrem 100% da estadia com conforto."
   },
   {
-    title: "Compra Antecipada Rigorosa",
+    title: "Reserva Antecipada Mandatória",
     icon: "Ticket",
-    content: "Sagrada Família, Casa Batlló e Parc Güell ESGOTAM com semanas de antecedência. Adquiram os ingressos pelos links oficiais listados neste site com 3 a 4 semanas antes da viagem (especialmente para o domingo, 14/09)."
+    content: "Sagrada Família, Casa Batlló e Parque Güell esgotam com semanas de antecedência. Adquira os bilhetes pelos links oficiais deste roteiro com 3 a 4 semanas antes da viagem."
   },
   {
-    title: "Shabat no Sábado (Dia 13/09)",
-    icon: "Sun",
-    content: "Como o pôr do sol ocorre pontualmente às 20:03, o sábado foi desenhado para ser 100% contemplativo, leve e sem gastos financeiros até a noite. Aproveitaremos a beleza arquitetônica das fachadas e a orla marítima."
+    title: "Catedral de Barcelona Gratuita",
+    icon: "Landmark",
+    content: "A Catedral abre gratuitamente de segunda a sexta para oração e culto das 08h30 às 12h30. Chegando logo às 08h30 na terça-feira, o acesso ao interior e claustro histórico é 100% livre e sem filas."
   },
   {
-    title: "Horários de Alimentação na Espanha",
+    title: "Feira do Rolo (Mercat dels Encants)",
+    icon: "Sparkles",
+    content: "O mercado de pulgas com teto espelhado só funciona às segundas, quartas, sextas e sábados das 09h às 20h. Por isso, a visitação foi alocada estrategicamente na segunda-feira pela manhã."
+  },
+  {
+    title: "Gastronomia & Alimentação Consciente",
     icon: "Utensils",
-    content: "Os restaurantes espanhóis almoçam tipicamente entre 13:30 e 15:30, e o jantar começa a partir das 20:30 ou 21:00. O roteiro foi perfeitamente sincronizado com esses horários locais."
+    content: "O roteiro prioriza opções vegetarianas, frutos do mar frescos, frutas, sucos naturais e pratos tradicionais catalães/espanhóis totalmente isentos de carne suína."
   },
   {
-    title: "Segurança e Conforto",
-    icon: "ShieldCheck",
-    content: "Barcelona é muito segura, mas requer atenção a batedores de carteira ('pickpockets') em locais com aglomeração como Las Ramblas e estações centrais do metrô. Mantenham mochilas na frente e celulares nos bolsos internos."
+    title: "Madrid Express (Dia 4)",
+    icon: "Sun",
+    content: "Ao pousar em Madrid às 13:45, deixe as malas na consigna do aeroporto (~€10) e vá de comboio Cercanías C1/C10 direto ao centro. O percurso a pé das 15h às 21h15 conecta todos os cartões-postais sem perder tempo no trânsito."
   }
 ];
+
+export const MADRID_PRICING_BREAKDOWN = [
+  {
+    name: "Consigna no Aeroporto Barajas (Left Luggage)",
+    price: 10.00,
+    day: "Dia 4 (Qua 16/09)",
+    status: "Logística",
+    category: "Serviço",
+    notes: "Por volume/mala para o período de escala no aeroporto."
+  },
+  {
+    name: "Comboio Cercanías C1/C10 (Aeroporto T4 ↔ Sol/Atocha)",
+    price: 2.60,
+    day: "Dia 4 (Qua 16/09)",
+    status: "Transporte",
+    category: "Mobilidade",
+    notes: "Ligação direta rápida e barata entre o aeroporto e o centro histórico."
+  },
+  {
+    name: "Mercado de São Miguel (Lanche de Tapas)",
+    price: 15.00,
+    day: "Dia 4 (Qua 16/09)",
+    status: "Gastronomia",
+    category: "Alimentação",
+    notes: "Tapas vegetais, queijos manchego e empanadas no histórico mercado de ferro fundido."
+  },
+  {
+    name: "Museu do Prado (Opcional)",
+    price: 15.00,
+    day: "Dia 4 (Qua 16/09)",
+    status: "Opcional",
+    category: "Arte",
+    url: "https://www.museodelprado.es/en/visit-the-museum",
+    notes: "Opção sugerida ao lado dos Jardins do Retiro para os amantes de arte."
+  }
+];
+
+export const MADRID_FREE_ATTRACTIONS = [
+  { name: "Porta do Sol & Marco Quilômetro Zero", day: "Madrid", cost: "€0,00" },
+  { name: "Plaza Mayor & Arcos dos Habsburgos", day: "Madrid", cost: "€0,00" },
+  { name: "Palácio Real de Madrid (Exteriores & Jardins Sabatini)", day: "Madrid", cost: "€0,00" },
+  { name: "Catedral de Almudena (Fachada e Interior)", day: "Madrid", cost: "€0,00" },
+  { name: "Gran Vía (Boulevard e Arquitetura)", day: "Madrid", cost: "€0,00" },
+  { name: "Praça de Cibeles & Palácio de Cibeles", day: "Madrid", cost: "€0,00" },
+  { name: "Puerta de Alcalá (Arco de Carlos III)", day: "Madrid", cost: "€0,00" },
+  { name: "Jardins do Retiro & Palácio de Cristal (UNESCO)", day: "Madrid", cost: "€0,00" }
+];
+
+export const MADRID_PRACTICAL_TIPS = [
+  {
+    title: "1 Tarde Intensiva Bem Planejada",
+    icon: "Sun",
+    content: "Com a chegada às 13:45 e o voo às 23:55, o roteiro das 15h às 21h15 conecta Sol, Plaza Mayor, Palácio Real, Gran Vía e Retiro numa sequência geográfica contínua e sem cruzamentos."
+  },
+  {
+    title: "Consigna no Aeroporto (T4)",
+    icon: "ShieldCheck",
+    content: "Deixar as malas na consigna (Left Luggage) do aeroporto permite explorar Madrid apenas com mochila leve, sem peso nem filas de guarda-volumes no centro."
+  },
+  {
+    title: "Compras na Gran Vía",
+    icon: "ShoppingBag",
+    content: "O trecho entre o Palácio e Cibeles passa pelas maiores lojas da Gran Vía, perfeito para comprar lembranças e artigos espanhóis no final de tarde."
+  },
+  {
+    title: "Atrações Opcionais Flexíveis",
+    icon: "Sparkles",
+    content: "Chocolateria San Ginés, Templo de Debod e Museu do Prado estão mapeados como opções ao longo do percurso para quem quiser personalizar a tarde."
+  }
+];
+
+// Helper Function for City Data
+export function getCityData(cityId = 'barcelona') {
+  if (cityId === 'madrid') {
+    return {
+      id: 'madrid',
+      name: 'Madrid',
+      country: 'Espanha',
+      heroImage: '/images/madrid_hero.jpg',
+      tripMeta: MADRID_TRIP_META,
+      lodgingInfo: MADRID_LODGING_INFO,
+      daysData: MADRID_DAYS_DATA,
+      pricingBreakdown: MADRID_PRICING_BREAKDOWN,
+      freeAttractions: MADRID_FREE_ATTRACTIONS,
+      practicalTips: MADRID_PRACTICAL_TIPS,
+      optionalAttractions: MADRID_OPTIONAL_ATTRACTIONS
+    };
+  }
+
+  return {
+    id: 'barcelona',
+    name: 'Barcelona',
+    country: 'Catalunha, Espanha',
+    heroImage: '/images/barcelona_hero.jpg',
+    tripMeta: TRIP_META,
+    lodgingInfo: LODGING_INFO,
+    daysData: DAYS_DATA,
+    pricingBreakdown: PRICING_BREAKDOWN,
+    freeAttractions: FREE_ATTRACTIONS,
+    practicalTips: PRACTICAL_TIPS
+  };
+}
