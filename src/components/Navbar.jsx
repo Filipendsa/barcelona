@@ -10,7 +10,8 @@ import {
   Receipt,
   Sparkles,
   MapPin,
-  Map as MapIcon
+  Map as MapIcon,
+  Download
 } from 'lucide-react';
 
 export function Navbar({ 
@@ -137,6 +138,16 @@ export function Navbar({
 
         {/* Right: Sound, Slide Deck & Fullscreen Controls */}
         <div className="flex items-center gap-2">
+          {/* PDF Export Quick Trigger */}
+          <button
+            onClick={() => onJumpToScene(scenes.length - 1)}
+            title="Exportar Roteiros em PDF (Nome, Endereço e Metrô)"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 hover:text-white border border-teal-500/30 transition-all text-xs font-serif cursor-pointer"
+          >
+            <Download size={13} className="text-teal-400" />
+            <span className="hidden sm:inline font-semibold">PDF</span>
+          </button>
+
           {/* Slide Deck Drawer Trigger */}
           <button
             onClick={onOpenSlideDrawer}
